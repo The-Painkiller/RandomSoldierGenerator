@@ -128,6 +128,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerManager.h" />
     <ClInclude Include="SoldierFactory.h" />
     <ClInclude Include="SoldierMarine.h" />
     <ClInclude Include="Soldier.h" />
@@ -141,8 +142,10 @@
     <ClInclude Include="UniqueAttackStyle.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="Marine.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerManager.cpp" />
     <ClCompile Include="Soldier.cpp" />
     <ClCompile Include="SoldierFactory.cpp" />
     <ClCompile Include="SoldierGreenBeret.cpp" />
