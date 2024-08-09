@@ -12,7 +12,7 @@ public:
 
 	~SoldierFactory() {}
 
-	Soldier* CreateSoldier(SoldierType soldierType);
+	Soldier* CreateSoldier(SoldierType soldierType, GridCoordinates startPosition);
 
 private:
 	int BaseCommonDamage = 30;

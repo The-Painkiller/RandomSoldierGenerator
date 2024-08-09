@@ -28,4 +28,3 @@ protected:
 private:
 	int _damage;
 };
-

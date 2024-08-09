@@ -5,8 +5,8 @@
 class SoldierMarine : public Soldier, public UniqueAttackSpecialGuerilla
 {
 public:
-	SoldierMarine(int initialHealth, int commonDamage, int initialUniqueDamage) :
-		Soldier(Sniper, initialHealth, commonDamage),
+	SoldierMarine(int initialHealth, int commonDamage, int initialUniqueDamage, GridCoordinates startPosition) :
+		Soldier(Marine, initialHealth, commonDamage, startPosition),
 		UniqueAttackSpecialGuerilla(initialUniqueDamage) {}
 
 	~SoldierMarine() {}

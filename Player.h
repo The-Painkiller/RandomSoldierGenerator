@@ -6,8 +6,10 @@ class Player
 public:
 	Player(int initialArmySize);
 	Player() = delete;
+	~Player();
 
-	void AddSoldier(Soldier& soldier);
+	void AddSoldier(Soldier* soldier);
+	Soldier* GetSoldier(int index);
 	int GetArmySize();
 
 private:

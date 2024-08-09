@@ -1,20 +1,22 @@
 #pragma once
 #include "Player.h"
-#include "SoldierFactory.h"
 #include<vector>
 
 class PlayerManager
 {
 public:
-	PlayerManager(int numberOfPlayers);
+	PlayerManager(int numberOfPlayers, int defaultNumberOfSoldiers);
 	PlayerManager() = delete;
+	~PlayerManager();
+
 	void AddNewPlayer();
 	void AddNewPlayer(Player* player);
+	void AddSoldierForPlayer(int playerIndex, Soldier* soldier);
+	int GetPlayerCount();
+	int GetSoldierCount();
 	Player* GetPlayer(int index);
-	void GenerateArmyForPlayer(int playerIndex);
 	
 private:
-	int _numberOfSoldiers = 20;
+	int _defaultNumberOfSoldiers = 0;
 	std::vector<Player*> _players;
-	SoldierFactory *_soldierFactory = new SoldierFactory();
 };

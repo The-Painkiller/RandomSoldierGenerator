@@ -1,16 +1,27 @@
 #include "PlayerManager.h"
 
-PlayerManager::PlayerManager(int numberOfPlayers)
+PlayerManager::PlayerManager(int numberOfPlayers, int defaultNumberOfSoldiers)
 {
-	for(int i = 0; i < numberOfPlayers; i++)
+	_defaultNumberOfSoldiers = defaultNumberOfSoldiers;
+	for (int i = 0; i < numberOfPlayers; i++)
 	{
-		_players.push_back(new Player(_numberOfSoldiers));
+		_players.push_back(new Player(_defaultNumberOfSoldiers));
 	}
+}
+
+PlayerManager::~PlayerManager()
+{
+	for (int i = 0; i < _players.size(); i++)
+	{
+		delete _players[i];
+	}
+
+	_players.clear();
 }
 
 void PlayerManager::AddNewPlayer()
 {
-	_players.push_back(new Player(_numberOfSoldiers));
+	_players.push_back(new Player(_defaultNumberOfSoldiers));
 }
 
 void PlayerManager::AddNewPlayer(Player* player)
@@ -20,10 +31,29 @@ void PlayerManager::AddNewPlayer(Player* player)
 
 Player* PlayerManager::GetPlayer(int index)
 {
+	if (_players.empty() || index >= _players.size())
+	{
+		return NULL;
+	}
 	return _players[index];
 }
 
-void PlayerManager::GenerateArmyForPlayer(int playerIndex)
+void PlayerManager::AddSoldierForPlayer(int playerIndex, Soldier* soldier)
 {
+	if (_players.empty() || playerIndex >= _players.size())
+	{
+		return;
+	}
 
+	_players[playerIndex]->AddSoldier(soldier);
+}
+
+int PlayerManager::GetPlayerCount()
+{
+	return _players.size();
+}
+
+int PlayerManager::GetSoldierCount()
+{
+	return _defaultNumberOfSoldiers;
 }

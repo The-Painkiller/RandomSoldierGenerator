@@ -5,8 +5,8 @@
 class SoldierSniper : public Soldier, public UniqueAttackSnipe
 {
 public:
-	SoldierSniper(int initialHealth, int commonDamage, int initialUniqueDamage) :
-		Soldier(Sniper, initialHealth, commonDamage),
+	SoldierSniper(int initialHealth, int commonDamage, int initialUniqueDamage, GridCoordinates startPosition) :
+		Soldier(Sniper, initialHealth, commonDamage, startPosition),
 		UniqueAttackSnipe(initialUniqueDamage) {}
 
 	~SoldierSniper() {}
