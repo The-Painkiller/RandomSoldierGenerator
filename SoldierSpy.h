@@ -12,5 +12,6 @@ public:
 	~SoldierSpy() {}
 
 	void Attack(int& enemHealth) override;
+	void SpecialAttack(int& enemyHealth) override;
 };
 

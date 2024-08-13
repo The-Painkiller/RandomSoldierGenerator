@@ -1,8 +1,9 @@
 #include "Player.h"
 
-Player::Player(int initialArmySize)
+Player::Player(int initialArmySize, int playerId)
 {
 	_armySize = initialArmySize;
+	_playerId = playerId;
 }
 
 Player::~Player()
@@ -28,4 +29,9 @@ Soldier* Player::GetSoldier(int index)
 int Player::GetArmySize()
 {
 	return _armySize;
+}
+
+int Player::GetPlayerId()
+{
+	return _playerId;
 }

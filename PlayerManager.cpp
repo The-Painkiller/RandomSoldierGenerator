@@ -5,7 +5,7 @@ PlayerManager::PlayerManager(int numberOfPlayers, int defaultNumberOfSoldiers)
 	_defaultNumberOfSoldiers = defaultNumberOfSoldiers;
 	for (int i = 0; i < numberOfPlayers; i++)
 	{
-		_players.push_back(new Player(_defaultNumberOfSoldiers));
+		_players.push_back(new Player(_defaultNumberOfSoldiers, i));
 	}
 }
 
@@ -21,7 +21,7 @@ PlayerManager::~PlayerManager()
 
 void PlayerManager::AddNewPlayer()
 {
-	_players.push_back(new Player(_defaultNumberOfSoldiers));
+	_players.push_back(new Player(_defaultNumberOfSoldiers, _players.size()));
 }
 
 void PlayerManager::AddNewPlayer(Player* player)

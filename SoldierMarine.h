@@ -12,5 +12,6 @@ public:
 	~SoldierMarine() {}
 
 	void Attack(int& enemyHealth) override;
+	void SpecialAttack(int& enemyHealth) override;
 };
 

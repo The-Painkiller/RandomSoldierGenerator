@@ -7,10 +7,10 @@ public:
 
 	~UniqueAttackGuerilla() {}
 
-	void UniqueAttack(int& enemyHealth) override;
 	GuerillaStyle GetGuerillaStyle();
 
 protected:
+	void UniqueAttack(int& enemyHealth) override;
 	void SetGuerillaStyle(GuerillaStyle style);
 
 private:
