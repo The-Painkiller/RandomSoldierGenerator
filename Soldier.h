@@ -19,14 +19,14 @@ public:
 	virtual void SpecialAttack(int& enemyHealth) = 0;
 
 	void SetPlayerId(int Id);
-	void SetDamage(int health);
+	void SetHealth(int health);
 	void SetPosition(GridCoordinates position);
 	GridCoordinates GetPosition();
 
 	int GetHealth();
 	int GetCommonDamage();
 	int GetParentPlayerId();
-	int GetAttackRange();
+	double GetAttackRange();
 
 	SoldierType GetType();
 
@@ -37,7 +37,7 @@ private:
 	int _parentPlayerId = -1;
 	int _health = 0;
 	int _commonDamage = 0;
-	int _attackRange = 0;
+	double _attackRange = 0;
 
 	SoldierType _type;
 	GridCoordinates _position;

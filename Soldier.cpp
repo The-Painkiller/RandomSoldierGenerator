@@ -14,11 +14,11 @@ void Soldier::SetPlayerId(int Id)
 	_parentPlayerId = Id;
 }
 
-void Soldier::SetDamage(int damage)
+void Soldier::SetHealth(int newHealth)
 {
-	_health -= damage;
+	_health = newHealth;
 
-	if (_health < 0)
+	if (_health <= 0)
 	{
 		_health = 0;
 	}
@@ -54,7 +54,7 @@ int Soldier::GetParentPlayerId()
 	return _parentPlayerId;
 }
 
-int Soldier::GetAttackRange()
+double Soldier::GetAttackRange()
 {
 	return _attackRange;
 }

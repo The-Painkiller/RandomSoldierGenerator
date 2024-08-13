@@ -18,6 +18,6 @@ private:
 	int _currentAttackingPlayerId = -1;
 	int _currentPlayerCount = 0;
 	bool _isBattleOnGoing = false;
-	std::vector<Soldier&> _enemySoldiersOnGround;
+	std::vector<Soldier*> _enemySoldiersOnGround;
 };
 

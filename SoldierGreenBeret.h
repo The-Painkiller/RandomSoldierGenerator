@@ -5,8 +5,8 @@
 class SoldierGreenBeret : public Soldier, public UniqueAttackGuerilla
 {
 public:
-	SoldierGreenBeret(int initialHealth, int commonDamage, int initialUniqueDamage, GridCoordinates startPosition) :
-		Soldier(GreenBeret, initialHealth, commonDamage, startPosition),
+	SoldierGreenBeret(int initialHealth, int commonDamage, int attackRange, int initialUniqueDamage, GridCoordinates startPosition) :
+		Soldier(GreenBeret, initialHealth, commonDamage, attackRange,startPosition),
 		UniqueAttackGuerilla(initialUniqueDamage) {}
 
 	~SoldierGreenBeret(){}

@@ -20,7 +20,7 @@ void CombatManager::SetCurrentTurn(int playerId)
 
 		for (int j = 0; j < _currentPlayersList[i].GetArmySize(); i++)
 		{
-			_enemySoldiersOnGround.push_back(*_currentPlayersList[i].GetSoldier(j));
+			_enemySoldiersOnGround.push_back(_currentPlayersList[i].GetSoldier(j));
 		}
 	}
 }
@@ -34,14 +34,18 @@ void CombatManager::BeginCurrentAttack()
 		{
 			int attackerPosX = _currentPlayersList[_currentAttackingPlayerId].GetSoldier(i)->GetPosition().X;
 			int attackerPosY = _currentPlayersList[_currentAttackingPlayerId].GetSoldier(i)->GetPosition().Y;
-			int enemyPosX = _enemySoldiersOnGround[j].GetPosition().X;
-			int enemyPosY = _enemySoldiersOnGround[j].GetPosition().Y;
+			int enemyPosX = _enemySoldiersOnGround[j]->GetPosition().X;
+			int enemyPosY = _enemySoldiersOnGround[j]->GetPosition().Y;
 
 			int attackerRange = _currentPlayersList[_currentAttackingPlayerId].GetSoldier(i)->GetAttackRange();
 
 			if (MathUtils::EuclideanDistance(attackerPosX, attackerPosY, enemyPosX, enemyPosY) <= attackerRange)
 			{
 				///Kill With Power
+				int enemyHealth = _enemySoldiersOnGround[j]->GetHealth();
+				_currentPlayersList[_currentAttackingPlayerId].GetSoldier(i)->SpecialAttack(enemyHealth);
+				_enemySoldiersOnGround[j]->SetHealth(enemyHealth);
+				continue;
 			}
 		}
 	}
