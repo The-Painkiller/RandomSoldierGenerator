@@ -1,5 +1,6 @@
 #pragma once
 #include"GlobalEnums.h"
+#include "Event.h"
 enum SoldierType
 {
 	Sniper = 1,
@@ -18,6 +19,7 @@ public:
 	virtual void Attack(int& enemyHealth) = 0;
 	virtual void SpecialAttack(int& enemyHealth) = 0;
 
+	void RegisterEventHandler(EventHandler* handler);
 	void SetPlayerId(int Id);
 	void SetHealth(int health);
 	void SetPosition(GridCoordinates position);
@@ -41,4 +43,5 @@ private:
 
 	SoldierType _type;
 	GridCoordinates _position;
+	EventHandler* _eventHandler;
 };

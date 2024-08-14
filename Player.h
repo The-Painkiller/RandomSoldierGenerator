@@ -1,5 +1,6 @@
 #pragma once
 #include "Soldier.h"
+#include "Event.h"
 #include<vector>
 class Player
 {
@@ -17,5 +18,7 @@ private:
 	int _armySize = 0;
 	int _playerId = -1;
 	std::vector<Soldier*> _soldiers;
+
+	void KillSoldier(Soldier* dyingSoldier);
 };
 

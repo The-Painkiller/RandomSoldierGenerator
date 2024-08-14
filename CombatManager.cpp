@@ -51,33 +51,6 @@ void CombatManager::BeginCurrentAttack()
 	}
 }
 
-//void CombatManager::BeginBattle()
-//{
-//	if (_currentPlayersList == nullptr || _currentPlayerCount == 0)
-//	{
-//		return;
-//	}
-//
-//	_isBattleOnGoing = true;
-//	while (_isBattleOnGoing)
-//	{
-//		for (int playerIndex = 0; playerIndex < _currentPlayerCount; playerIndex++)
-//		{
-//			_currentAttackingPlayerId = _currentDefendingPlayerIds.at(0);
-//			_currentDefendingPlayerIds.erase(_currentDefendingPlayerIds.begin());
-//			
-//			
-//			for (int soldierIndex = 0; soldierIndex < _currentPlayersList[playerIndex].GetArmySize(); soldierIndex++)
-//			{
-//				for(int i = 0; i < _soldiersOnGround.size())
-//			}
-//
-//
-//			_currentDefendingPlayerIds.push_back(_currentAttackingPlayerId);
-//		}
-//	}
-//}
-
 CombatManager::~CombatManager()
 {
 	delete _currentPlayersList;

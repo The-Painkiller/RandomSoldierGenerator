@@ -9,6 +9,11 @@ Soldier::Soldier(SoldierType type, int initialHealth, int commonDamage, int atta
 	_attackRange = attackRange;
 }
 
+void Soldier::RegisterEventHandler(EventHandler* handler)
+{
+	_eventHandler = handler;
+}
+
 void Soldier::SetPlayerId(int Id)
 {
 	_parentPlayerId = Id;
@@ -62,8 +67,8 @@ double Soldier::GetAttackRange()
 void Soldier::ReduceEnemyHealth(int& enemyHealth)
 {
 	enemyHealth -= GetCommonDamage();
-	if (enemyHealth < 0)
+	if (enemyHealth <= 0)
 	{
-		enemyHealth = 0;
+		_eventHandler->HandleEvent(0);
 	}
 }

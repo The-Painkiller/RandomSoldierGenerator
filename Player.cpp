@@ -35,3 +35,14 @@ int Player::GetPlayerId()
 {
 	return _playerId;
 }
+
+void Player::KillSoldier(Soldier* dyingSoldier)
+{
+	auto iter = std::find(_soldiers.begin(), _soldiers.end(), dyingSoldier);
+	if (iter != _soldiers.end())
+	{
+		_soldiers.erase(iter);
+	}
+
+	delete dyingSoldier;
+}
