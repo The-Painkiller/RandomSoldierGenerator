@@ -8,13 +8,13 @@ public:
 	CombatManager() = default;
 	~CombatManager();
 	
-	void Initialize(Player* playerList,const int playerCount);
+	void Initialize(const std::vector<Player*>& playerList,const int playerCount);
 
 	void SetCurrentTurn(int playerId);
 	void BeginCurrentAttack();
 
 private:
-	Player* _currentPlayersList = nullptr;
+	std::vector<Player*> _currentPlayersList;
 	int _currentAttackingPlayerId = -1;
 	int _currentPlayerCount = 0;
 	bool _isBattleOnGoing = false;

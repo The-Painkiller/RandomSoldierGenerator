@@ -14,10 +14,12 @@ int main()
 		printf("\n");
 		for (int j = 0; j < gameManager->GetPlayer(i).GetArmySize(); j++)
 		{
-			printf("%d",gameManager->GetPlayer(i).GetSoldier(j)->GetType());
+			printf("%d",gameManager->GetPlayer(i).GetSoldier(j).GetType());
 			printf("\n");
 		}
 		printf("\n");
 		printf("\n");
 	}
+
+	gameManager->BeginBattle();
 }

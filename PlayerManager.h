@@ -15,6 +15,7 @@ public:
 	int GetPlayerCount();
 	int GetSoldierCount();
 	Player* GetPlayer(int index);
+	std::vector<Player*>& GetPlayers();
 	
 private:
 	int _defaultNumberOfSoldiers = 0;

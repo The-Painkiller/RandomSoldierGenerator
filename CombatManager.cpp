@@ -1,6 +1,6 @@
 #include "CombatManager.h"
 
-void CombatManager::Initialize(Player* playerList, const int playerCount)
+void CombatManager::Initialize(const std::vector<Player*>& playerList, const int playerCount)
 {
 	_currentPlayersList = playerList;
 	_currentPlayerCount = playerCount;
@@ -13,39 +13,46 @@ void CombatManager::SetCurrentTurn(int playerId)
 
 	for (int i = 0; i < _currentPlayerCount; i++)
 	{
-		if (_currentPlayersList[i].GetPlayerId() == _currentAttackingPlayerId)
+		if (_currentPlayersList[i]->GetPlayerId() == _currentAttackingPlayerId)
 		{
 			continue;
 		}
 
-		for (int j = 0; j < _currentPlayersList[i].GetArmySize(); i++)
+		for (int j = 0; j < _currentPlayersList[i]->GetArmySize(); j++)
 		{
-			_enemySoldiersOnGround.push_back(_currentPlayersList[i].GetSoldier(j));
+			_enemySoldiersOnGround.push_back(&_currentPlayersList[i]->GetSoldier(j));
 		}
 	}
 }
 
 void CombatManager::BeginCurrentAttack()
 {
-	for (int i = 0; i < _currentPlayersList[_currentAttackingPlayerId].GetArmySize(); i++)
+	for (int i = 0; i < _currentPlayersList[_currentAttackingPlayerId]->GetArmySize(); i++)
 	{
 		///seek and destroy
 		for (int j = 0; j < _enemySoldiersOnGround.size(); j++)
 		{
-			int attackerPosX = _currentPlayersList[_currentAttackingPlayerId].GetSoldier(i)->GetPosition().X;
-			int attackerPosY = _currentPlayersList[_currentAttackingPlayerId].GetSoldier(i)->GetPosition().Y;
+			int attackerPosX = _currentPlayersList[_currentAttackingPlayerId]->GetSoldier(i).GetPosition().X;
+			int attackerPosY = _currentPlayersList[_currentAttackingPlayerId]->GetSoldier(i).GetPosition().Y;
 			int enemyPosX = _enemySoldiersOnGround[j]->GetPosition().X;
 			int enemyPosY = _enemySoldiersOnGround[j]->GetPosition().Y;
 
-			int attackerRange = _currentPlayersList[_currentAttackingPlayerId].GetSoldier(i)->GetAttackRange();
+			double attackerRange = _currentPlayersList[_currentAttackingPlayerId]->GetSoldier(i).GetAttackRange();
 
 			if (MathUtils::EuclideanDistance(attackerPosX, attackerPosY, enemyPosX, enemyPosY) <= attackerRange)
 			{
 				///Kill With Power
 				int enemyHealth = _enemySoldiersOnGround[j]->GetHealth();
-				_currentPlayersList[_currentAttackingPlayerId].GetSoldier(i)->SpecialAttack(enemyHealth);
+				_currentPlayersList[_currentAttackingPlayerId]->GetSoldier(i).SpecialAttack(enemyHealth);
 				_enemySoldiersOnGround[j]->SetHealth(enemyHealth);
-				continue;
+				if (enemyHealth == 0)
+				{
+					_currentPlayersList[_enemySoldiersOnGround[j]->GetParentPlayerId()]->KillSoldier(_enemySoldiersOnGround[j]);
+				}
+			}
+			else
+			{
+				_currentPlayersList[_currentAttackingPlayerId]->IncrementIdleSoldierCount();
 			}
 		}
 	}
@@ -53,7 +60,7 @@ void CombatManager::BeginCurrentAttack()
 
 CombatManager::~CombatManager()
 {
-	delete _currentPlayersList;
-	_currentPlayersList = nullptr;
+	_currentPlayersList.clear();
 	_currentPlayerCount = 0;
+	_enemySoldiersOnGround.clear();
 }

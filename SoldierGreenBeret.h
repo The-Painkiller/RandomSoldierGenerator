@@ -1,5 +1,6 @@
 #pragma once
-#include "Soldier.h";
+
+#include "Soldier.h"
 #include "UniqueAttackGuerilla.h"
 
 class SoldierGreenBeret : public Soldier, public UniqueAttackGuerilla
@@ -14,4 +15,3 @@ public:
 	void Attack(int& enemyHealth) override;
 	void SpecialAttack(int& enemyHealth) override;
 };
-

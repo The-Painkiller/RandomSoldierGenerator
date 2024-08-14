@@ -4,6 +4,7 @@ GameManager::GameManager(const int defaultPlayerCount, const int defaultNumberOf
 {
 	_playerManager = new PlayerManager(defaultPlayerCount, defaultNumberOfSoldiers);
 	_gridManager = new GridManager(DefaultGridSize);
+	_combatManager = new CombatManager();
 }
 
 GameManager::~GameManager()
@@ -16,6 +17,9 @@ GameManager::~GameManager()
 
 	delete _soldierFactory;
 	_soldierFactory = nullptr;
+
+	delete _combatManager;
+	_combatManager = nullptr;
 }
 
 void GameManager::Initialize()
@@ -33,6 +37,17 @@ void GameManager::Initialize()
 void GameManager::AddNewPlayer()
 {
 	_playerManager->AddNewPlayer();
+}
+
+void GameManager::BeginBattle()
+{
+	_combatManager->Initialize(_playerManager->GetPlayers(), _playerManager->GetPlayerCount());
+	
+	for (int i = 0; i < _playerManager->GetPlayerCount(); i++)
+	{
+		_combatManager->SetCurrentTurn(i);
+		_combatManager->BeginCurrentAttack();
+	}
 }
 
 Player& GameManager::GetPlayer(int index)

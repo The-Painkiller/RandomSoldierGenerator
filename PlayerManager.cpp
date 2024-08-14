@@ -33,9 +33,14 @@ Player* PlayerManager::GetPlayer(int index)
 {
 	if (_players.empty() || index >= _players.size())
 	{
-		return NULL;
+		return nullptr;
 	}
 	return _players[index];
+}
+
+std::vector<Player*>& PlayerManager::GetPlayers()
+{
+	return _players;
 }
 
 void PlayerManager::AddSoldierForPlayer(int playerIndex, Soldier* soldier)
@@ -45,6 +50,7 @@ void PlayerManager::AddSoldierForPlayer(int playerIndex, Soldier* soldier)
 		return;
 	}
 
+	soldier->SetPlayerId(playerIndex);
 	_players[playerIndex]->AddSoldier(soldier);
 }
 

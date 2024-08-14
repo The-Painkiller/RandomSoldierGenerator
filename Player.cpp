@@ -21,19 +21,24 @@ void Player::AddSoldier(Soldier* soldier)
 	_soldiers.push_back(soldier);
 }
 
-Soldier* Player::GetSoldier(int index)
+Soldier& Player::GetSoldier(int index)
 {
-	return _soldiers[index];
+	return *_soldiers[index];
 }
 
 int Player::GetArmySize()
 {
-	return _armySize;
+	return _soldiers.size();
 }
 
 int Player::GetPlayerId()
 {
 	return _playerId;
+}
+
+int Player::GetIdleSoldierCount()
+{
+	return _idleSoldierCounter;
 }
 
 void Player::KillSoldier(Soldier* dyingSoldier)
@@ -45,4 +50,9 @@ void Player::KillSoldier(Soldier* dyingSoldier)
 	}
 
 	delete dyingSoldier;
+}
+
+void Player::IncrementIdleSoldierCount()
+{
+	_idleSoldierCounter += 1;
 }
