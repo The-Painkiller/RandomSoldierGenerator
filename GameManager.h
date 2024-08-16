@@ -1,9 +1,12 @@
 #pragma once
 #include<cstdlib>
+#include<thread>
+#include<chrono>
 #include"PlayerManager.h"
 #include"GridManager.h"
 #include "SoldierFactory.h"
 #include "CombatManager.h"
+#include "GameLogger.h"
 
 class GameManager
 {
@@ -16,6 +19,8 @@ public:
 	void Initialize();
 	void AddNewPlayer();
 	void BeginBattle();
+	void PlayAttackTurnCycle();
+	void LogPlayerArmies();
 	Player& GetPlayer(int index);
 	int GetCurrentPlayerCount();
 

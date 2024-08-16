@@ -8,12 +8,13 @@ public:
 	Player() = delete;
 	~Player();
 
-	void AddSoldier(Soldier* soldier);
 	Soldier& GetSoldier(int index);
 	int GetArmySize();
 	int GetPlayerId();
 	int GetIdleSoldierCount();
 	void IncrementIdleSoldierCount();
+	void ResetIdleSoldierCount();
+	void AddSoldier(Soldier* soldier);
 	void KillSoldier(Soldier* dyingSoldier);
 
 private:

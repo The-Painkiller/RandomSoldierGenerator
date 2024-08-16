@@ -29,13 +29,12 @@ void PlayerManager::AddNewPlayer(Player* player)
 	_players.push_back(player);
 }
 
-Player* PlayerManager::GetPlayer(int index)
+Player& PlayerManager::GetPlayer(int index)
 {
-	if (_players.empty() || index >= _players.size())
+	if (!_players.empty() && index < _players.size())
 	{
-		return nullptr;
+		return *_players[index];
 	}
-	return _players[index];
 }
 
 std::vector<Player*>& PlayerManager::GetPlayers()
@@ -62,4 +61,17 @@ int PlayerManager::GetPlayerCount()
 int PlayerManager::GetSoldierCount()
 {
 	return _defaultNumberOfSoldiers;
+}
+
+bool PlayerManager::AreAllPlayersIdle()
+{
+	for (int i = 0; i < _players.size(); i++)
+	{
+		if (_players[i]->GetIdleSoldierCount() < _players[i]->GetArmySize())
+		{
+			return false;
+		}
+	}
+	
+	return true;
 }

@@ -14,7 +14,8 @@ public:
 	void AddSoldierForPlayer(int playerIndex, Soldier* soldier);
 	int GetPlayerCount();
 	int GetSoldierCount();
-	Player* GetPlayer(int index);
+	bool AreAllPlayersIdle();
+	Player& GetPlayer(int index);
 	std::vector<Player*>& GetPlayers();
 	
 private:

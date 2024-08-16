@@ -56,3 +56,8 @@ void Player::IncrementIdleSoldierCount()
 {
 	_idleSoldierCounter += 1;
 }
+
+void Player::ResetIdleSoldierCount()
+{
+	_idleSoldierCounter = 0;
+}

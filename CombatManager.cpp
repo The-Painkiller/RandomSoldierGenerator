@@ -27,6 +27,7 @@ void CombatManager::SetCurrentTurn(int playerId)
 
 void CombatManager::BeginCurrentAttack()
 {
+	_currentPlayersList[_currentAttackingPlayerId]->ResetIdleSoldierCount();
 	for (int i = 0; i < _currentPlayersList[_currentAttackingPlayerId]->GetArmySize(); i++)
 	{
 		///seek and destroy

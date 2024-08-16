@@ -43,16 +43,33 @@ void GameManager::BeginBattle()
 {
 	_combatManager->Initialize(_playerManager->GetPlayers(), _playerManager->GetPlayerCount());
 	
+	while (!_playerManager->AreAllPlayersIdle())
+	{
+		PlayAttackTurnCycle();
+	}
+}
+
+void GameManager::PlayAttackTurnCycle()
+{
 	for (int i = 0; i < _playerManager->GetPlayerCount(); i++)
 	{
 		_combatManager->SetCurrentTurn(i);
 		_combatManager->BeginCurrentAttack();
+		std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+	}
+}
+
+void GameManager::LogPlayerArmies()
+{
+	for (int i = 0; i < _playerManager->GetPlayerCount(); i++)
+	{
+		GameLogger::LogPlayerArmy(_playerManager->GetPlayer(i));
 	}
 }
 
 Player& GameManager::GetPlayer(int index)
 {
-	return *_playerManager->GetPlayer(index);
+	return _playerManager->GetPlayer(index);
 }
 
 int GameManager::GetCurrentPlayerCount()
