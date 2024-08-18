@@ -31,30 +31,58 @@ void CombatManager::BeginCurrentAttack()
 	for (int i = 0; i < _currentPlayersList[_currentAttackingPlayerId]->GetArmySize(); i++)
 	{
 		///seek and destroy
-		for (int j = 0; j < _enemySoldiersOnGround.size(); j++)
+		if (!SeekAndDestroy(i))
 		{
-			int attackerPosX = _currentPlayersList[_currentAttackingPlayerId]->GetSoldier(i).GetPosition().X;
-			int attackerPosY = _currentPlayersList[_currentAttackingPlayerId]->GetSoldier(i).GetPosition().Y;
-			int enemyPosX = _enemySoldiersOnGround[j]->GetPosition().X;
-			int enemyPosY = _enemySoldiersOnGround[j]->GetPosition().Y;
+			//increment idle count
+			_currentPlayersList[_currentAttackingPlayerId]->IncrementIdleSoldierCount();
+		}
+	}
+	CheckArmyStatus();
+}
 
-			double attackerRange = _currentPlayersList[_currentAttackingPlayerId]->GetSoldier(i).GetAttackRange();
+bool CombatManager::SeekAndDestroy(int attackingSoldierId)
+{
+	for (int i = 0; i < _enemySoldiersOnGround.size(); i++)
+	{
+		int attackerPosX = _currentPlayersList[_currentAttackingPlayerId]->GetSoldier(attackingSoldierId).GetPosition().X;
+		int attackerPosY = _currentPlayersList[_currentAttackingPlayerId]->GetSoldier(attackingSoldierId).GetPosition().Y;
+		int enemyPosX = _enemySoldiersOnGround[i]->GetPosition().X;
+		int enemyPosY = _enemySoldiersOnGround[i]->GetPosition().Y;
 
-			if (MathUtils::EuclideanDistance(attackerPosX, attackerPosY, enemyPosX, enemyPosY) <= attackerRange)
+		double attackerRange = _currentPlayersList[_currentAttackingPlayerId]->GetSoldier(attackingSoldierId).GetAttackRange();
+
+		if (MathUtils::EuclideanDistance(attackerPosX, attackerPosY, enemyPosX, enemyPosY) <= attackerRange)
+		{
+			///Kill With Power
+			int enemyHealth = _enemySoldiersOnGround[i]->GetHealth();
+			_currentPlayersList[_currentAttackingPlayerId]->GetSoldier(attackingSoldierId).SpecialAttack(enemyHealth);
+			_enemySoldiersOnGround[i]->SetHealth(enemyHealth);
+
+			GameLogger::LogAttack(_currentAttackingPlayerId, attackingSoldierId, _enemySoldiersOnGround[i]->GetParentPlayerId(), i, _enemySoldiersOnGround[i]->GetHealth());
+
+			if (enemyHealth == 0)
 			{
-				///Kill With Power
-				int enemyHealth = _enemySoldiersOnGround[j]->GetHealth();
-				_currentPlayersList[_currentAttackingPlayerId]->GetSoldier(i).SpecialAttack(enemyHealth);
-				_enemySoldiersOnGround[j]->SetHealth(enemyHealth);
-				if (enemyHealth == 0)
-				{
-					_currentPlayersList[_enemySoldiersOnGround[j]->GetParentPlayerId()]->KillSoldier(_enemySoldiersOnGround[j]);
-				}
+				/*GameLogger::LogDeath(j, _enemySoldiersOnGround[j]->GetParentPlayerId());*/
+
+				_currentPlayersList[_enemySoldiersOnGround[i]->GetParentPlayerId()]->KillSoldier(_enemySoldiersOnGround[i]);
 			}
-			else
-			{
-				_currentPlayersList[_currentAttackingPlayerId]->IncrementIdleSoldierCount();
-			}
+			return true;
+		}
+	}
+	return false;
+}
+
+void CombatManager::CheckArmyStatus()
+{
+	for (int i = 0; i < _currentPlayersList.size(); i++)
+	{
+		if (_currentPlayersList[i]->GetPlayerId() == _currentAttackingPlayerId)
+		{
+			continue;
+		}
+		else if (_currentPlayersList[i]->GetArmySize() == 0)
+		{
+			GameLogger::LogResult(_currentPlayersList[i]->GetPlayerId(), false);
 		}
 	}
 }

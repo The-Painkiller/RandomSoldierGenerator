@@ -1,6 +1,7 @@
 #pragma once
 #include"Player.h"
 #include "MathUtils.h"
+#include"GameLogger.h"
 
 class CombatManager
 {
@@ -12,12 +13,14 @@ public:
 
 	void SetCurrentTurn(int playerId);
 	void BeginCurrentAttack();
+	void CheckArmyStatus();
 
 private:
-	std::vector<Player*> _currentPlayersList;
 	int _currentAttackingPlayerId = -1;
 	int _currentPlayerCount = 0;
 	bool _isBattleOnGoing = false;
+	std::vector<Player*> _currentPlayersList;
 	std::vector<Soldier*> _enemySoldiersOnGround;
+	bool SeekAndDestroy(int attackingSoldierId);
 };
 
