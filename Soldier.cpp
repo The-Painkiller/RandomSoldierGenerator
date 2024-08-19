@@ -1,10 +1,10 @@
 #include "Soldier.h"
 
-Soldier::Soldier(SoldierType type, int initialHealth, int commonDamage, int attackRange, GridCoordinates position)
+Soldier::Soldier(SoldierType type, int initialHealth, int damage, int attackRange, GridCoordinates position)
 {
 	_type = type;
 	_health = initialHealth;
-	_commonDamage = commonDamage;
+	_damage = damage;
 	_position = position;
 	_attackRange = attackRange;
 }
@@ -44,9 +44,9 @@ SoldierType Soldier::GetType()
 	return _type;
 }
 
-int Soldier::GetCommonDamage()
+int Soldier::GetDamage()
 {
-	return _commonDamage;
+	return _damage;
 }
 
 int Soldier::GetParentPlayerId()
@@ -61,5 +61,5 @@ double Soldier::GetAttackRange()
 
 void Soldier::ReduceEnemyHealth(int& enemyHealth)
 {
-	enemyHealth -= GetCommonDamage();
+	enemyHealth -= GetDamage();
 }

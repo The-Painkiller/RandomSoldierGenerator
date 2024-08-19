@@ -18,21 +18,6 @@
     <ClInclude Include="Soldier.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="UniqueAttackStyle.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="UniqueAttackSnipe.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="UniqueAttackGuerilla.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="UniqueAttackSpecialGuerilla.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="UniqueAttackAmbushGuerilla.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="SoldierSniper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -78,21 +63,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Soldier.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="UniqueAttackStyle.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="UniqueAttackSnipe.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="UniqueAttackGuerilla.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="UniqueAttackSpecialGuerilla.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="UniqueAttackAmbushGuerilla.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SoldierSniper.cpp">

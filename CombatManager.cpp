@@ -55,15 +55,13 @@ bool CombatManager::SeekAndDestroy(int attackingSoldierId)
 		{
 			///Kill With Power
 			int enemyHealth = _enemySoldiersOnGround[i]->GetHealth();
-			_currentPlayersList[_currentAttackingPlayerId]->GetSoldier(attackingSoldierId).SpecialAttack(enemyHealth);
+			_currentPlayersList[_currentAttackingPlayerId]->GetSoldier(attackingSoldierId).Attack(enemyHealth);
 			_enemySoldiersOnGround[i]->SetHealth(enemyHealth);
 
 			GameLogger::LogAttack(_currentAttackingPlayerId, attackingSoldierId, _enemySoldiersOnGround[i]->GetParentPlayerId(), i, _enemySoldiersOnGround[i]->GetHealth());
 
-			if (enemyHealth == 0)
+			if (enemyHealth <= 0)
 			{
-				/*GameLogger::LogDeath(j, _enemySoldiersOnGround[j]->GetParentPlayerId());*/
-
 				_currentPlayersList[_enemySoldiersOnGround[i]->GetParentPlayerId()]->KillSoldier(_enemySoldiersOnGround[i]);
 			}
 			return true;

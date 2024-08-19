@@ -1,17 +1,14 @@
 #pragma once
 
 #include "Soldier.h"
-#include "UniqueAttackGuerilla.h"
 
-class SoldierGreenBeret : public Soldier, public UniqueAttackGuerilla
+class SoldierGreenBeret : public Soldier
 {
 public:
-	SoldierGreenBeret(int initialHealth, int commonDamage, int attackRange, int initialUniqueDamage, GridCoordinates startPosition) :
-		Soldier(GreenBeret, initialHealth, commonDamage, attackRange,startPosition),
-		UniqueAttackGuerilla(initialUniqueDamage) {}
+	SoldierGreenBeret(int initialHealth, int damage, int attackRange, GridCoordinates startPosition) :
+		Soldier(GreenBeret, initialHealth, damage, attackRange, startPosition) {}
 
 	~SoldierGreenBeret(){}
 
 	void Attack(int& enemyHealth) override;
-	void SpecialAttack(int& enemyHealth) override;
 };

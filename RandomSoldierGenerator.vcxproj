@@ -142,11 +142,6 @@
     <ClInclude Include="SoldierGreenBeret.h" />
     <ClInclude Include="SoldierSniper.h" />
     <ClInclude Include="SoldierSpy.h" />
-    <ClInclude Include="UniqueAttackAmbushGuerilla.h" />
-    <ClInclude Include="UniqueAttackGuerilla.h" />
-    <ClInclude Include="UniqueAttackSnipe.h" />
-    <ClInclude Include="UniqueAttackSpecialGuerilla.h" />
-    <ClInclude Include="UniqueAttackStyle.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CombatManager.cpp" />
@@ -164,11 +159,6 @@
     <ClCompile Include="SoldierMarine.cpp" />
     <ClCompile Include="SoldierSniper.cpp" />
     <ClCompile Include="SoldierSpy.cpp" />
-    <ClCompile Include="UniqueAttackAmbushGuerilla.cpp" />
-    <ClCompile Include="UniqueAttackGuerilla.cpp" />
-    <ClCompile Include="UniqueAttackSnipe.cpp" />
-    <ClCompile Include="UniqueAttackSpecialGuerilla.cpp" />
-    <ClCompile Include="UniqueAttackStyle.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

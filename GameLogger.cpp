@@ -24,6 +24,10 @@ void GameLogger::LogPlayerArmy(Player& player)
 void GameLogger::LogAttack(int attackingPlayerId, int attackingSoldierId, int defendingPlayerId, int defendingSoldierId, int defendingSoldierHealth)
 {
 	printf("P%d S%d -> P%d S%d. Health reduced to %d", attackingPlayerId, attackingSoldierId, defendingPlayerId, defendingSoldierId, defendingSoldierHealth);
+	if (defendingSoldierHealth <= 0)
+	{
+		printf("P%d S%d Dies!", defendingPlayerId, defendingSoldierId);
+	}
 	printf("\n");
 }
 

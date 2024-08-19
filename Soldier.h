@@ -4,11 +4,10 @@
 class Soldier
 {
 public:
-	Soldier(SoldierType type, int initialHealth, int commonDamage, int attackRange, GridCoordinates position);
+	Soldier(SoldierType type, int initialHealth, int damage, int attackRange, GridCoordinates position);
 	~Soldier() {}
 
 	virtual void Attack(int& enemyHealth) = 0;
-	virtual void SpecialAttack(int& enemyHealth) = 0;
 
 	void SetPlayerId(int Id);
 	void SetHealth(int health);
@@ -16,7 +15,7 @@ public:
 	GridCoordinates GetPosition();
 
 	int GetHealth();
-	int GetCommonDamage();
+	int GetDamage();
 	int GetParentPlayerId();
 	double GetAttackRange();
 
@@ -28,7 +27,7 @@ protected:
 private:
 	int _parentPlayerId = -1;
 	int _health = 0;
-	int _commonDamage = 0;
+	int _damage = 0;
 	double _attackRange = 0;
 
 	SoldierType _type;
