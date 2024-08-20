@@ -134,6 +134,7 @@
     <ClInclude Include="GlobalEnums.h" />
     <ClInclude Include="GridManager.h" />
     <ClInclude Include="MathUtils.h" />
+    <ClInclude Include="Object.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerManager.h" />
     <ClInclude Include="SoldierFactory.h" />
@@ -151,6 +152,7 @@
     <ClCompile Include="GridManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MathUtils.cpp" />
+    <ClCompile Include="Object.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerManager.cpp" />
     <ClCompile Include="Soldier.cpp" />

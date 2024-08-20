@@ -8,5 +8,6 @@ public:
 	~MathUtils() {}
 
 	static double EuclideanDistance(int x1, int y1, int x2, int y2);
+	static int NewPosition(int direction, int currentPosOnMoveAxis, int boundaryPosOnMoveAxis, int speed);
 };
 

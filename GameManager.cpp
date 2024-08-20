@@ -26,17 +26,14 @@ void GameManager::Initialize()
 {
 	for (int i = 0; i < _playerManager->GetPlayerCount(); i++)
 	{
-		for (int j = 0; j < _playerManager->GetSoldierCount(); j++)
+		for (int j = 0; j < _playerManager->GetDefaultNumberOfSoldiers(); j++)
 		{
 			int randomSoldierId = rand() % (SoldierType::None - 1) + 1;
-			_playerManager->AddSoldierForPlayer(i, _soldierFactory->CreateSoldier((SoldierType)randomSoldierId, GetRandomPosition()));
+			GridCoordinates soldierPosition = GetRandomPosition(_playerManager->GetPlayer(i).GetPlayerSide());
+			_playerManager->AddSoldierForPlayer(i, _soldierFactory->CreateSoldier((SoldierType)randomSoldierId, soldierPosition));
+			_gridManager->OccupyPosition(soldierPosition);
 		}
 	}
-}
-
-void GameManager::AddNewPlayer()
-{
-	_playerManager->AddNewPlayer();
 }
 
 void GameManager::BeginBattle()
@@ -59,6 +56,18 @@ void GameManager::PlayAttackTurnCycle()
 	}
 }
 
+void GameManager::PlayPropCollectionCycle()
+{
+}
+
+void GameManager::PlayMovementCycle()
+{
+	for (int i = 0; i < _playerManager->GetPlayerCount(); i++)
+	{
+		
+	}
+}
+
 void GameManager::LogPlayerArmies()
 {
 	for (int i = 0; i < _playerManager->GetPlayerCount(); i++)
@@ -77,15 +86,28 @@ int GameManager::GetCurrentPlayerCount()
 	return _playerManager->GetPlayerCount();
 }
 
-GridCoordinates GameManager::GetRandomPosition()
+GridCoordinates GameManager::GetRandomPosition(PlayerSide playerSide)
 {
-	int posX = rand() % DefaultGridSize.X;
-	int posY = rand() % DefaultGridSize.Y;
-	while (_gridManager->IsPositionOccupied({ posX, posY }))
-	{
-		posX = rand() % DefaultGridSize.X;
-		posY = rand() % DefaultGridSize.Y;
-	}
+	int posX = 0;
+	int posY = 0;
 
+	switch (playerSide)
+	{
+		case Left:
+			while (_gridManager->IsPositionOccupied({ posX, posY }))
+			{
+				posX = rand() % _playerManager->GetDefaultNumberOfSoldiers();
+				posY = rand() % DefaultGridSize.Y;
+			}
+			break;
+
+		case Right:
+			while (_gridManager->IsPositionOccupied({ posX, posY }))
+			{
+				posX = rand() % _playerManager->GetDefaultNumberOfSoldiers() + (DefaultGridSize.X - _playerManager->GetDefaultNumberOfSoldiers());
+				posY = rand() % DefaultGridSize.Y;
+			}
+			break;
+	}
 	return {posX, posY};
 }

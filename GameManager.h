@@ -17,9 +17,10 @@ public:
 	~GameManager();
 
 	void Initialize();
-	void AddNewPlayer();
 	void BeginBattle();
 	void PlayAttackTurnCycle();
+	void PlayPropCollectionCycle();
+	void PlayMovementCycle();
 	void LogPlayerArmies();
 	Player& GetPlayer(int index);
 	int GetCurrentPlayerCount();
@@ -30,6 +31,7 @@ private:
 	CombatManager* _combatManager = nullptr;
 	SoldierFactory* _soldierFactory = new SoldierFactory();
 	const GridCoordinates DefaultGridSize = { 100, 100 };
+	const int DefaultArmySpeed = 10;
 	
-	GridCoordinates GetRandomPosition();
+	GridCoordinates GetRandomPosition(PlayerSide playerSide);
 };

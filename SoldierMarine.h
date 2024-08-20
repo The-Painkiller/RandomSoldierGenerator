@@ -10,5 +10,8 @@ public:
 	~SoldierMarine() {}
 
 	void Attack(int& enemyHealth) override;
-};
+	int GetSpeed() override;
 
+private:
+	const int Speed = 6;
+};

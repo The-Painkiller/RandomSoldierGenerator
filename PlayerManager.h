@@ -9,11 +9,10 @@ public:
 	PlayerManager() = delete;
 	~PlayerManager();
 
-	void AddNewPlayer();
 	void AddNewPlayer(Player* player);
 	void AddSoldierForPlayer(int playerIndex, Soldier* soldier);
 	int GetPlayerCount();
-	int GetSoldierCount();
+	int GetDefaultNumberOfSoldiers();
 	bool AreAllPlayersIdle();
 	Player& GetPlayer(int index);
 	std::vector<Player*>& GetPlayers();

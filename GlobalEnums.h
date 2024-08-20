@@ -19,3 +19,10 @@ enum GameState
 	Battle = 1,
 	Finished = 2
 };
+
+enum PlayerSide
+{
+	NoSide = 0,
+	Left = 1,
+	Right = 2
+};

@@ -10,5 +10,9 @@ public:
 	~SoldierSpy() {}
 
 	void Attack(int& enemHealth) override;
+	int GetSpeed() override;
+
+private:
+	const int Speed = 9;
 };
 

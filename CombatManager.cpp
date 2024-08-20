@@ -63,6 +63,7 @@ bool CombatManager::SeekAndDestroy(int attackingSoldierId)
 			if (enemyHealth <= 0)
 			{
 				_currentPlayersList[_enemySoldiersOnGround[i]->GetParentPlayerId()]->KillSoldier(_enemySoldiersOnGround[i]);
+				_enemySoldiersOnGround.erase(_enemySoldiersOnGround.begin() + i);
 			}
 			return true;
 		}
@@ -89,5 +90,7 @@ CombatManager::~CombatManager()
 {
 	_currentPlayersList.clear();
 	_currentPlayerCount = 0;
+	_currentAttackingPlayerId = -1;
+	_isBattleOnGoing = false;
 	_enemySoldiersOnGround.clear();
 }

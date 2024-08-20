@@ -23,4 +23,3 @@ private:
 	std::vector<Soldier*> _enemySoldiersOnGround;
 	bool SeekAndDestroy(int attackingSoldierId);
 };
-

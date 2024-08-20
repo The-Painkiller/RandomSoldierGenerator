@@ -1,9 +1,10 @@
 #include "Player.h"
 
-Player::Player(int initialArmySize, int playerId)
+Player::Player(int initialArmySize, int playerId, PlayerSide playerSide)
 {
 	_armySize = initialArmySize;
 	_playerId = playerId;
+	_playerSide = playerSide;
 }
 
 Player::~Player()
@@ -41,6 +42,11 @@ int Player::GetIdleSoldierCount()
 	return _idleSoldierCounter;
 }
 
+PlayerSide Player::GetPlayerSide()
+{
+	return _playerSide;
+}
+
 void Player::KillSoldier(Soldier* dyingSoldier)
 {
 	auto iter = std::find(_soldiers.begin(), _soldiers.end(), dyingSoldier);
@@ -60,4 +66,15 @@ void Player::IncrementIdleSoldierCount()
 void Player::ResetIdleSoldierCount()
 {
 	_idleSoldierCounter = 0;
+}
+
+void Player::MoveArmy(GridCoordinates boundary)
+{
+	GridCoordinates pos;
+	for (int i = 0; i < _soldiers.size(); i++)
+	{
+		pos = _soldiers[i]->GetPosition();
+		pos.X = MathUtils::NewPosition(_playerSide, pos.X, boundary.X, _soldiers[i]->GetSpeed());
+		_soldiers[i]->SetPosition(pos);
+	}
 }
