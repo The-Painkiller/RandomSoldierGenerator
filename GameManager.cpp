@@ -43,16 +43,18 @@ void GameManager::BeginBattle()
 	while (!_playerManager->AreAllPlayersIdle())
 	{
 		PlayAttackTurnCycle();
+		PlayMovementCycle();
 	}
 }
 
 void GameManager::PlayAttackTurnCycle()
 {
+	GameLogger::LogText("---Attack Cycle---");
 	for (int i = 0; i < _playerManager->GetPlayerCount(); i++)
 	{
 		_combatManager->SetCurrentTurn(i);
 		_combatManager->BeginCurrentAttack();
-		std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+		std::this_thread::sleep_for(std::chrono::milliseconds(3000));
 	}
 }
 
@@ -62,10 +64,13 @@ void GameManager::PlayPropCollectionCycle()
 
 void GameManager::PlayMovementCycle()
 {
+	GameLogger::LogText("---Movement Cycle---");
 	for (int i = 0; i < _playerManager->GetPlayerCount(); i++)
 	{
-		
+		_playerManager->GetPlayer(i).MoveArmy(DefaultGridSize);
 	}
+
+	LogPlayerArmies();
 }
 
 void GameManager::LogPlayerArmies()

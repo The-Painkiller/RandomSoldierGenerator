@@ -26,3 +26,11 @@ enum PlayerSide
 	Left = 1,
 	Right = 2
 };
+
+enum PropType
+{
+	DudProp = 0,
+	HealthBoostType = 1,
+	ArmourType = 2,
+	AttackBoostType = 3
+};
