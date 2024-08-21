@@ -31,7 +31,7 @@ private:
 	CombatManager* _combatManager = nullptr;
 	SoldierFactory* _soldierFactory = new SoldierFactory();
 	const GridCoordinates DefaultGridSize = { 100, 100 };
-	const int DefaultArmySpeed = 10;
+	const int DefaultPropCountAtStart = 20;
 	
 	GridCoordinates GetRandomPosition(PlayerSide playerSide);
 };

@@ -141,6 +141,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerManager.h" />
     <ClInclude Include="Prop.h" />
+    <ClInclude Include="PropManager.h" />
     <ClInclude Include="SoldierFactory.h" />
     <ClInclude Include="SoldierMarine.h" />
     <ClInclude Include="Soldier.h" />
@@ -163,6 +164,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerManager.cpp" />
     <ClCompile Include="Prop.cpp" />
+    <ClCompile Include="PropManager.cpp" />
     <ClCompile Include="Soldier.cpp" />
     <ClCompile Include="SoldierFactory.cpp" />
     <ClCompile Include="SoldierGreenBeret.cpp" />
