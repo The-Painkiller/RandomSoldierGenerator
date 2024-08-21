@@ -135,6 +135,7 @@
     <ClInclude Include="GridManager.h" />
     <ClInclude Include="PropArmour.h" />
     <ClInclude Include="PropAttackBoost.h" />
+    <ClInclude Include="PropFactory.h" />
     <ClInclude Include="PropHealthBoost.h" />
     <ClInclude Include="MathUtils.h" />
     <ClInclude Include="Object.h" />
@@ -157,6 +158,7 @@
     <ClCompile Include="GridManager.cpp" />
     <ClCompile Include="PropArmour.cpp" />
     <ClCompile Include="PropAttackBoost.cpp" />
+    <ClCompile Include="PropFactory.cpp" />
     <ClCompile Include="PropHealthBoost.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MathUtils.cpp" />

@@ -1,17 +1,18 @@
 #pragma once
 #include"Prop.h"
 #include<vector>
+#include <map>
 class PropManager
 {
 public:
-	PropManager(int initialPropCount);
-	PropManager() = delete;
+	PropManager() = default;
+	PropManager(PropManager&) = delete;
 	~PropManager();
 
-	void AddProp();
+	void AddProp(Prop* prop, int propKey);
+	void RemoveProp(const int propKey);
 
 private:
-	int _initialPropCount;
-	std::vector<Prop*> _props;
+	std::map<int, Prop*> _props;
 };
 

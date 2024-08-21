@@ -2,7 +2,7 @@
 
 int PropAttackBoost::GetBoostAmount()
 {
-    return _armour;
+    return _attackBoost;
 }
 
 PropType PropAttackBoost::GetPropType()

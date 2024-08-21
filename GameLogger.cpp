@@ -65,7 +65,6 @@ const char* GameLogger::GetSoldierTypeName(SoldierType type)
 	case Spy:
 		return "Spy";
 	case None:
-		break;
 	default:
 		return nullptr;
 	}

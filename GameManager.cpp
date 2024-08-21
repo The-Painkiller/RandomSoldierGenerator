@@ -24,16 +24,8 @@ GameManager::~GameManager()
 
 void GameManager::Initialize()
 {
-	for (int i = 0; i < _playerManager->GetPlayerCount(); i++)
-	{
-		for (int j = 0; j < _playerManager->GetDefaultNumberOfSoldiers(); j++)
-		{
-			int randomSoldierId = rand() % (SoldierType::None - 1) + 1;
-			GridCoordinates soldierPosition = GetRandomPosition(_playerManager->GetPlayer(i).GetPlayerSide());
-			_playerManager->AddSoldierForPlayer(i, _soldierFactory->CreateSoldier((SoldierType)randomSoldierId, soldierPosition));
-			_gridManager->OccupyPosition(soldierPosition);
-		}
-	}
+	PlaceSoldiers();
+	PlaceProps();
 }
 
 void GameManager::BeginBattle()
@@ -113,6 +105,37 @@ GridCoordinates GameManager::GetRandomPosition(PlayerSide playerSide)
 				posY = rand() % DefaultGridSize.Y;
 			}
 			break;
+
+		case NoSide:
+			while (_gridManager->IsPositionOccupied({ posX, posY }))
+			{
+				posX = rand() % DefaultGridSize.X;
+				posY = rand() % DefaultGridSize.Y;
+			}
+			break;
 	}
 	return {posX, posY};
+}
+
+void GameManager::PlaceSoldiers()
+{
+	for (int i = 0; i < _playerManager->GetPlayerCount(); i++)
+	{
+		for (int j = 0; j < _playerManager->GetDefaultNumberOfSoldiers(); j++)
+		{
+			int randomSoldierId = rand() % (SoldierType::None - 1) + 1;
+			GridCoordinates soldierPosition = GetRandomPosition(_playerManager->GetPlayer(i).GetPlayerSide());
+			_playerManager->AddSoldierForPlayer(i, _soldierFactory->CreateSoldier((SoldierType)randomSoldierId, soldierPosition));
+			_gridManager->OccupyPosition(soldierPosition);
+		}
+	}
+}
+
+void GameManager::PlaceProps()
+{
+	for (int i = 0; i < DefaultPropCountAtStart; i++)
+	{
+		int randomPropType = rand() % (PropType::DudProp - 1) + 1;
+		GridCoordinates propPosition = GetRandomPosition(NoSide);
+	}
 }

@@ -30,3 +30,8 @@ int MathUtils::NewPosition(int direction, int currentPosOnMoveAxis, int boundary
 
 	return newPos;
 }
+
+int MathUtils::Random(int floor, int ceilingNotIncluded)
+{
+	return rand() % (ceilingNotIncluded - floor) + floor;
+}

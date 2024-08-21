@@ -7,6 +7,7 @@
 #include "SoldierFactory.h"
 #include "CombatManager.h"
 #include "GameLogger.h"
+#include "PropManager.h"
 
 class GameManager
 {
@@ -17,6 +18,7 @@ public:
 	~GameManager();
 
 	void Initialize();
+
 	void BeginBattle();
 	void PlayAttackTurnCycle();
 	void PlayPropCollectionCycle();
@@ -30,8 +32,11 @@ private:
 	GridManager* _gridManager = nullptr;
 	CombatManager* _combatManager = nullptr;
 	SoldierFactory* _soldierFactory = new SoldierFactory();
+	
 	const GridCoordinates DefaultGridSize = { 100, 100 };
 	const int DefaultPropCountAtStart = 20;
 	
 	GridCoordinates GetRandomPosition(PlayerSide playerSide);
+	void PlaceSoldiers();
+	void PlaceProps();
 };

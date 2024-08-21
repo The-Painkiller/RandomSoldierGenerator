@@ -17,4 +17,3 @@ public:
 private:
 	int BaseCommonDamage = 30;
 };
-

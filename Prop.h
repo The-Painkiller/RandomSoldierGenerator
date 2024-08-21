@@ -13,6 +13,5 @@ public:
 
 protected:
 	PropType _type;
-	
 	void SetPosition(GridCoordinates position) override;
 };

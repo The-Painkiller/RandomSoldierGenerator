@@ -14,5 +14,10 @@ public:
 	PropType GetPropType() override;
 
 private:
+	/*
+	* Logic:
+	* 
+	* Permanently increases your health.
+	*/
 	int _boost = 0;
 };

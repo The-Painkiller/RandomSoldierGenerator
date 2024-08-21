@@ -1,10 +1,5 @@
 #include "PropManager.h"
 
-PropManager::PropManager(int initialPropCount)
-{
-	_initialPropCount = initialPropCount;
-}
-
 PropManager::~PropManager()
 {
 	for (int i = 0; i < _props.size(); i++)
@@ -13,4 +8,14 @@ PropManager::~PropManager()
 	}
 
 	_props.clear();
+}
+
+void PropManager::AddProp(Prop* prop, int propKey)
+{
+	_props.insert({propKey, prop});
+}
+
+void PropManager::RemoveProp(const int propKey)
+{
+	_props.erase(propKey);
 }

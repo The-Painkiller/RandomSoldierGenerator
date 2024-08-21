@@ -3,9 +3,9 @@
 class PropAttackBoost : public Prop
 {
 public:
-	PropAttackBoost(int boostAmount, GridCoordinates position) : Prop(AttackBoostType, position)
+	PropAttackBoost(int boost,GridCoordinates position) : Prop(AttackBoostType, position)
 	{
-		_armour = boostAmount;
+		_attackBoost = boost;
 	}
 	PropAttackBoost() = delete;
 	~PropAttackBoost() {}
@@ -14,6 +14,11 @@ public:
 	PropType GetPropType() override;
 
 private:
-	int _armour = 0;
+	/*
+	* Logic:
+	* 
+	* Permanently increases your attack.
+	*/
+	int _attackBoost = 0;
 };
 
