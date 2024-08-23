@@ -32,7 +32,7 @@ void GameManager::BeginBattle()
 {
 	_combatManager->Initialize(_playerManager->GetPlayers(), _playerManager->GetPlayerCount());
 	
-	while (!_playerManager->AreAllPlayersIdle())
+	while (!_playerManager->AreAllPlayersIdle() && !_isGameOver)
 	{
 		PlayAttackTurnCycle();
 		PlayMovementCycle();
@@ -41,12 +41,25 @@ void GameManager::BeginBattle()
 
 void GameManager::PlayAttackTurnCycle()
 {
+	if (_isGameOver)
+	{
+		return;
+	}
+
 	GameLogger::LogText("---Attack Cycle---");
 	for (int i = 0; i < _playerManager->GetPlayerCount(); i++)
 	{
-		_combatManager->SetCurrentTurn(i);
-		_combatManager->BeginCurrentAttack();
-		std::this_thread::sleep_for(std::chrono::milliseconds(3000));
+		if (!_playerManager->GetPlayer(i).IsDefeated())
+		{
+			_combatManager->SetCurrentTurn(i);
+			_combatManager->BeginCurrentAttack();
+			std::this_thread::sleep_for(std::chrono::milliseconds(0));
+		}
+		else
+		{
+			_isGameOver = true;
+			break;
+		}
 	}
 }
 
@@ -56,6 +69,11 @@ void GameManager::PlayPropCollectionCycle()
 
 void GameManager::PlayMovementCycle()
 {
+	if (_isGameOver)
+	{
+		return;
+	}
+
 	GameLogger::LogText("---Movement Cycle---");
 	for (int i = 0; i < _playerManager->GetPlayerCount(); i++)
 	{

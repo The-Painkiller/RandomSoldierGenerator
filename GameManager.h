@@ -32,6 +32,8 @@ private:
 	GridManager* _gridManager = nullptr;
 	CombatManager* _combatManager = nullptr;
 	SoldierFactory* _soldierFactory = new SoldierFactory();
+
+	bool _isGameOver = false;
 	
 	const GridCoordinates DefaultGridSize = { 100, 100 };
 	const int DefaultPropCountAtStart = 20;

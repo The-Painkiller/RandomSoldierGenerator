@@ -75,13 +75,11 @@ void CombatManager::CheckArmyStatus()
 {
 	for (int i = 0; i < _currentPlayersList.size(); i++)
 	{
-		if (_currentPlayersList[i]->GetPlayerId() == _currentAttackingPlayerId)
+		 if (_currentPlayersList[i]->GetArmySize() <= 0)
 		{
-			continue;
-		}
-		else if (_currentPlayersList[i]->GetArmySize() == 0)
-		{
+			 _currentPlayersList[i]->SetDefeated();
 			GameLogger::LogResult(_currentPlayersList[i]->GetPlayerId(), false);
+			break;
 		}
 	}
 }

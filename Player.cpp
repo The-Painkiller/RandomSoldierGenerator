@@ -78,3 +78,13 @@ void Player::MoveArmy(GridCoordinates boundary)
 		_soldiers[i]->SetPosition(pos);
 	}
 }
+
+void Player::SetDefeated()
+{
+	_isPlayerDefeated = true;
+}
+
+bool Player::IsDefeated()
+{
+	return _isPlayerDefeated;
+}

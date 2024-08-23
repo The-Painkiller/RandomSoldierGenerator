@@ -19,11 +19,14 @@ public:
 	void AddSoldier(Soldier* soldier);
 	void KillSoldier(Soldier* dyingSoldier);
 	void MoveArmy(GridCoordinates boundary);
+	void SetDefeated();
+	bool IsDefeated();
 
 private:
 	int _armySize = 0;
 	int _playerId = -1;
 	int _idleSoldierCounter = 0;
+	bool _isPlayerDefeated = false;
 	PlayerSide _playerSide = NoSide;
 	std::vector<Soldier*> _soldiers;
 };
