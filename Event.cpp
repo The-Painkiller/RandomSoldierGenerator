@@ -2,6 +2,11 @@
 
 Event::~Event()
 {
+	for (int i = 0; i < _eventHandlers.size(); i++)
+	{
+		delete _eventHandlers[i];
+	}
+
 	_eventHandlers.clear();
 }
 

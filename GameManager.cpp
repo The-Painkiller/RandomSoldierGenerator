@@ -26,7 +26,7 @@ void GameManager::Initialize()
 {
 	PlaceSoldiers();
 	PlaceProps();
-	_combatManager->Register(this);
+	_combatManager->RegisterEventHandler(this);
 }
 
 void GameManager::BeginBattle()
