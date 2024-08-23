@@ -128,9 +128,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CombatManager.h" />
-    <ClInclude Include="EventHandler.h" />
+    <ClInclude Include="Event.h" />
     <ClInclude Include="GameLogger.h" />
     <ClInclude Include="GameManager.h" />
+    <ClInclude Include="GameOverEvent.h" />
     <ClInclude Include="GlobalEnums.h" />
     <ClInclude Include="GridManager.h" />
     <ClInclude Include="PropArmour.h" />
@@ -152,9 +153,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CombatManager.cpp" />
-    <ClCompile Include="EventHandler.cpp" />
+    <ClCompile Include="Event.cpp" />
     <ClCompile Include="GameLogger.cpp" />
     <ClCompile Include="GameManager.cpp" />
+    <ClCompile Include="GameOverEvent.cpp" />
     <ClCompile Include="GridManager.cpp" />
     <ClCompile Include="PropArmour.cpp" />
     <ClCompile Include="PropAttackBoost.cpp" />

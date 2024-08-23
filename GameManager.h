@@ -9,7 +9,7 @@
 #include "GameLogger.h"
 #include "PropManager.h"
 
-class GameManager
+class GameManager : public EventHandler
 {
 public:
 	GameManager(const int defaultPlayerCount, const int defaultNumberOfSoldiers);
@@ -24,6 +24,9 @@ public:
 	void PlayPropCollectionCycle();
 	void PlayMovementCycle();
 	void LogPlayerArmies();
+
+	void HandleEvent(GameEvent type) override;
+
 	Player& GetPlayer(int index);
 	int GetCurrentPlayerCount();
 

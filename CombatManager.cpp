@@ -78,6 +78,7 @@ void CombatManager::CheckArmyStatus()
 		 if (_currentPlayersList[i]->GetArmySize() <= 0)
 		{
 			 _currentPlayersList[i]->SetDefeated();
+			 Invoke(GameOver);
 			GameLogger::LogResult(_currentPlayersList[i]->GetPlayerId(), false);
 			break;
 		}

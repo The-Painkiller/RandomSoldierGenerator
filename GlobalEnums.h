@@ -14,10 +14,9 @@ enum SoldierType
 	None = 5
 };
 
-enum GameState
+enum GameEvent
 {
-	Battle = 1,
-	Finished = 2
+	GameOver = 1
 };
 
 enum PlayerSide

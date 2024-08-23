@@ -2,8 +2,9 @@
 #include"Player.h"
 #include "MathUtils.h"
 #include"GameLogger.h"
+#include "Event.h"
 
-class CombatManager
+class CombatManager : public Event
 {
 public:
 	CombatManager() = default;

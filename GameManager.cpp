@@ -26,6 +26,7 @@ void GameManager::Initialize()
 {
 	PlaceSoldiers();
 	PlaceProps();
+	_combatManager->Register(this);
 }
 
 void GameManager::BeginBattle()
@@ -88,6 +89,16 @@ void GameManager::LogPlayerArmies()
 	for (int i = 0; i < _playerManager->GetPlayerCount(); i++)
 	{
 		GameLogger::LogPlayerArmy(_playerManager->GetPlayer(i));
+	}
+}
+
+void GameManager::HandleEvent(GameEvent type)
+{
+	switch (type)
+	{
+	case GameOver:
+		_isGameOver = true;
+		break;
 	}
 }
 
