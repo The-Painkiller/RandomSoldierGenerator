@@ -6,7 +6,7 @@ class Prop : public Object
 public:
 	Prop() = delete;
 	Prop(PropType type, GridCoordinates position);
-	~Prop(){}
+	virtual ~Prop(){}
 
 	virtual PropType GetPropType() = 0;
 	GridCoordinates GetPosition() override;

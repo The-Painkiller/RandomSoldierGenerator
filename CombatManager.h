@@ -16,6 +16,7 @@ public:
 	void BeginCurrentAttack();
 	void CheckArmyStatus();
 	void RegisterEventHandler(EventHandler* handler);
+	int GetCurrentAttackingPlayerId();
 
 private:
 	int _currentAttackingPlayerId = -1;

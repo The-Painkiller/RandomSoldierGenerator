@@ -10,14 +10,14 @@ int MathUtils::NewPosition(int direction, int currentPosOnMoveAxis, int boundary
 	int newPos = 0;
 	switch (direction)
 	{
-	case 1:
+	case 1://Left
 		newPos = currentPosOnMoveAxis + speed;
 		if (newPos >= boundaryPosOnMoveAxis)
 		{
 			newPos = boundaryPosOnMoveAxis;
 		}
 		break;
-	case 2:
+	case 2://Right
 		newPos = currentPosOnMoveAxis - speed;
 		if (newPos <= boundaryPosOnMoveAxis)
 		{

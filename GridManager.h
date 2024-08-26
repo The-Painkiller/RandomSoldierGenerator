@@ -9,6 +9,7 @@ public:
 	~GridManager();
 
 	void OccupyPosition(const GridCoordinates position);
+	void ClearPositions();
 	GridCoordinates GetGridSize();
 	bool IsPositionOccupied(const GridCoordinates position);
 

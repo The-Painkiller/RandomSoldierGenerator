@@ -56,7 +56,7 @@ bool CombatManager::SeekAndDestroy(int attackingSoldierId)
 			///Kill With Power
 			int enemyHealth = _enemySoldiersOnGround[i]->GetHealth();
 			_currentPlayersList[_currentAttackingPlayerId]->GetSoldier(attackingSoldierId).Attack(enemyHealth);
-			_enemySoldiersOnGround[i]->SetHealth(enemyHealth);
+			_enemySoldiersOnGround[i]->SetHealth(enemyHealth, true);
 
 			GameLogger::LogAttack(_currentAttackingPlayerId, attackingSoldierId, _enemySoldiersOnGround[i]->GetParentPlayerId(), i, _enemySoldiersOnGround[i]->GetHealth());
 
@@ -88,6 +88,11 @@ void CombatManager::CheckArmyStatus()
 void CombatManager::RegisterEventHandler(EventHandler* handler)
 {
 	_event->Register(handler);
+}
+
+int CombatManager::GetCurrentAttackingPlayerId()
+{
+	return _currentAttackingPlayerId;
 }
 
 CombatManager::~CombatManager()

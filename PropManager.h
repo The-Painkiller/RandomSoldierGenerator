@@ -1,7 +1,7 @@
 #pragma once
 #include"Prop.h"
 #include<vector>
-#include <map>
+
 class PropManager
 {
 public:
@@ -9,10 +9,11 @@ public:
 	PropManager(PropManager&) = delete;
 	~PropManager();
 
-	void AddProp(Prop* prop, int propKey);
-	void RemoveProp(const int propKey);
+	void AddProp(Prop* prop);
+	void RemoveProp(const int propIndex);
+	Prop *GetProp(int index);
+	int GetPropsCount();
 
 private:
-	std::map<int, Prop*> _props;
+	std::vector<Prop*> _props;
 };
-

@@ -15,6 +15,11 @@ void GridManager::OccupyPosition(const GridCoordinates position)
 	_occupiedPositions.push_back(position);
 }
 
+void GridManager::ClearPositions()
+{
+	_occupiedPositions.clear();
+}
+
 GridCoordinates GridManager::GetGridSize()
 {
 	return _gridSize;

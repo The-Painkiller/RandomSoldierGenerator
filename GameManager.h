@@ -8,6 +8,7 @@
 #include "CombatManager.h"
 #include "GameLogger.h"
 #include "PropManager.h"
+#include "PropFactory.h"
 
 class GameManager : public EventHandler
 {
@@ -35,6 +36,8 @@ private:
 	GridManager* _gridManager = nullptr;
 	CombatManager* _combatManager = nullptr;
 	SoldierFactory* _soldierFactory = new SoldierFactory();
+	PropFactory* _propFactory = new PropFactory();
+	PropManager* _propManager = new PropManager();
 
 	bool _isGameOver = false;
 	
@@ -44,4 +47,5 @@ private:
 	GridCoordinates GetRandomPosition(PlayerSide playerSide);
 	void PlaceSoldiers();
 	void PlaceProps();
+	void RefreshGridPositions();
 };

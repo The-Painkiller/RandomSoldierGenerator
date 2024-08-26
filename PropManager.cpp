@@ -10,12 +10,26 @@ PropManager::~PropManager()
 	_props.clear();
 }
 
-void PropManager::AddProp(Prop* prop, int propKey)
+void PropManager::AddProp(Prop* prop)
 {
-	_props.insert({propKey, prop});
+	_props.push_back(prop);
 }
 
-void PropManager::RemoveProp(const int propKey)
+void PropManager::RemoveProp(const int propIndex)
 {
-	_props.erase(propKey);
+	delete _props[propIndex];
+	_props.erase(_props.begin() + propIndex);
+}
+
+Prop* PropManager::GetProp(int index)
+{
+	if (_props[index] != nullptr)
+	{
+		return _props[index];
+	}
+}
+
+int PropManager::GetPropsCount()
+{
+	return _props.size();
 }

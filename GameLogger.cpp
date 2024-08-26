@@ -52,6 +52,30 @@ void GameLogger::LogText(const char* text)
 	printf("\n");
 }
 
+void GameLogger::LogPropConsumption(int playerId, int soldierId, Prop* prop)
+{
+	printf("\n");
+	printf("P%d S%d grabs ", playerId, soldierId);
+	printf(GetPropTypeName(prop->GetPropType()));
+	
+	switch (prop->GetPropType())
+	{
+	case HealthBoostType:
+		printf(" Boost: %d",(dynamic_cast<PropHealthBoost*>(prop))->GetBoostAmount());
+		break;
+	case ArmourType:
+		printf(" Armour: %d", (dynamic_cast<PropArmour*>(prop))->GetArmourAmount());
+		break;
+	case AttackBoostType:
+		printf(" Boost: %d", (dynamic_cast<PropAttackBoost*>(prop))->GetBoostAmount());
+		break;
+	default:
+		break;
+	}
+
+	printf("\n");
+}
+
 const char* GameLogger::GetSoldierTypeName(SoldierType type)
 {
 	switch (type)
@@ -68,4 +92,22 @@ const char* GameLogger::GetSoldierTypeName(SoldierType type)
 	default:
 		return nullptr;
 	}
+}
+
+const char* GameLogger::GetPropTypeName(PropType type)
+{
+	switch (type)
+	{
+	case DudProp:
+		return "Dud";
+	case HealthBoostType:
+		return "Health Boost";
+	case ArmourType:
+		return "Armour";
+	case AttackBoostType:
+		return "Attack Boost";
+	default:
+		break;
+	}
+	return nullptr;
 }

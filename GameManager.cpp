@@ -35,7 +35,9 @@ void GameManager::BeginBattle()
 	
 	while (!_playerManager->AreAllPlayersIdle() && !_isGameOver)
 	{
+		//Soldiers prioritize attacking, then collecting props before moving to next position.
 		PlayAttackTurnCycle();
+		PlayPropCollectionCycle();
 		PlayMovementCycle();
 	}
 }
@@ -66,6 +68,71 @@ void GameManager::PlayAttackTurnCycle()
 
 void GameManager::PlayPropCollectionCycle()
 {
+	if (_isGameOver)
+	{
+		return;
+	}
+
+	GameLogger::LogText("---Prop Cycle---");
+
+	if (_propManager->GetPropsCount() <= 0)
+	{
+		GameLogger::LogText("All props consumed, no new props collected...");
+		return;
+	}
+	
+	for (int i = 0; i < _playerManager->GetPlayerCount(); i++)
+	{
+		for (int j = 0; j < _playerManager->GetPlayer(i).GetArmySize(); j++)
+		{
+			for (int k = 0; k < _propManager->GetPropsCount(); k++)
+			{
+				int soldierPosX = _playerManager->GetPlayer(i).GetSoldier(j).GetPosition().X;
+				int soldierPosY = _playerManager->GetPlayer(i).GetSoldier(j).GetPosition().Y;
+				int soldierRange = _playerManager->GetPlayer(i).GetSoldier(j).GetAttackRange();
+
+				int propPosX = _propManager->GetProp(k)->GetPosition().X;
+				int propPosY = _propManager->GetProp(k)->GetPosition().Y;
+
+				if (MathUtils::EuclideanDistance(soldierPosX, soldierPosY, propPosX, propPosY) <= soldierRange)
+				{
+					switch (_propManager->GetProp(k)->GetPropType())
+					{
+					case ArmourType:
+					{
+						_playerManager->GetPlayer(i).GetSoldier(j).SetArmour((PropArmour*)_propManager->GetProp(k));
+					}
+						break;
+
+					case HealthBoostType:
+					{
+						int healthBoost = ((PropHealthBoost*)_propManager->GetProp(k))->GetBoostAmount();
+						int health = _playerManager->GetPlayer(i).GetSoldier(j).GetHealth() + healthBoost;
+
+						_playerManager->GetPlayer(i).GetSoldier(j).SetHealth(health, false);
+					}
+						break;
+
+					case AttackBoostType:
+					{
+						int attackBoost = ((PropAttackBoost*)_propManager->GetProp(k))->GetBoostAmount();
+						int damage = _playerManager->GetPlayer(i).GetSoldier(j).GetDamage() + attackBoost;
+
+						_playerManager->GetPlayer(i).GetSoldier(j).SetDamage(damage);
+					}
+						break;
+					}
+
+					GameLogger::LogPropConsumption(i, j, _propManager->GetProp(k));
+					_propManager->RemoveProp(k);
+					break;
+				}
+
+			}
+		}
+	}
+
+	RefreshGridPositions();
 }
 
 void GameManager::PlayMovementCycle()
@@ -164,7 +231,37 @@ void GameManager::PlaceProps()
 {
 	for (int i = 0; i < DefaultPropCountAtStart; i++)
 	{
-		int randomPropType = rand() % (PropType::DudProp - 1) + 1;
 		GridCoordinates propPosition = GetRandomPosition(NoSide);
+
+		PropType randomPropType = (PropType)MathUtils::Random(1, 4);
+		_propManager->AddProp(_propFactory->CreateProp(randomPropType, propPosition));
+		_gridManager->OccupyPosition(propPosition);
+	}
+}
+
+void GameManager::RefreshGridPositions()
+{
+	_gridManager->ClearPositions();
+
+	//position of remaining props.
+	for (int i = 0; i < _propManager->GetPropsCount(); i++)
+	{
+		if (_propManager->GetProp(i) != nullptr)
+		{
+			GridCoordinates pos = _propManager->GetProp(i)->GetPosition();
+
+			_gridManager->OccupyPosition(pos);
+		}
+	}
+
+	//position of all the remaining attacking & defending soldiers.
+	for (int i = 0; i < _playerManager->GetPlayerCount(); i++)
+	{
+		for (int j = 0; j < _playerManager->GetPlayer(i).GetArmySize(); j++)
+		{
+			GridCoordinates pos = _playerManager->GetPlayer(i).GetSoldier(j).GetPosition();
+
+			_gridManager->OccupyPosition(pos);
+		}
 	}
 }
