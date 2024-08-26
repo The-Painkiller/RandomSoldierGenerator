@@ -48,4 +48,5 @@ private:
 	void PlaceSoldiers();
 	void PlaceProps();
 	void RefreshGridPositions();
+	void ConsumePropByType(int propIndex, int playerIndex, int soldierIndex);
 };

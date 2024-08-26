@@ -13,6 +13,8 @@ Soldier::~Soldier()
 {
 	delete _armour;
 	_armour = nullptr;
+
+	_type = SoldierType::None;
 }
 
 void Soldier::SetPlayerId(int Id)

@@ -20,6 +20,12 @@ GameManager::~GameManager()
 
 	delete _combatManager;
 	_combatManager = nullptr;
+
+	delete _propFactory;
+	_propFactory = nullptr;
+
+	delete _propManager;
+	_propManager = nullptr;
 }
 
 void GameManager::Initialize()
@@ -96,32 +102,7 @@ void GameManager::PlayPropCollectionCycle()
 
 				if (MathUtils::EuclideanDistance(soldierPosX, soldierPosY, propPosX, propPosY) <= soldierRange)
 				{
-					switch (_propManager->GetProp(k)->GetPropType())
-					{
-					case ArmourType:
-					{
-						_playerManager->GetPlayer(i).GetSoldier(j).SetArmour((PropArmour*)_propManager->GetProp(k));
-					}
-						break;
-
-					case HealthBoostType:
-					{
-						int healthBoost = ((PropHealthBoost*)_propManager->GetProp(k))->GetBoostAmount();
-						int health = _playerManager->GetPlayer(i).GetSoldier(j).GetHealth() + healthBoost;
-
-						_playerManager->GetPlayer(i).GetSoldier(j).SetHealth(health, false);
-					}
-						break;
-
-					case AttackBoostType:
-					{
-						int attackBoost = ((PropAttackBoost*)_propManager->GetProp(k))->GetBoostAmount();
-						int damage = _playerManager->GetPlayer(i).GetSoldier(j).GetDamage() + attackBoost;
-
-						_playerManager->GetPlayer(i).GetSoldier(j).SetDamage(damage);
-					}
-						break;
-					}
+					ConsumePropByType(k, i, j);
 
 					GameLogger::LogPropConsumption(i, j, _propManager->GetProp(k));
 					_propManager->RemoveProp(k);
@@ -131,8 +112,37 @@ void GameManager::PlayPropCollectionCycle()
 			}
 		}
 	}
-
 	RefreshGridPositions();
+}
+
+void GameManager::ConsumePropByType(int propIndex, int playerIndex, int soldierIndex)
+{
+	switch (_propManager->GetProp(propIndex)->GetPropType())
+	{
+	case ArmourType:
+	{
+		_playerManager->GetPlayer(playerIndex).GetSoldier(soldierIndex).SetArmour((PropArmour*)_propManager->GetProp(propIndex));
+	}
+	break;
+
+	case HealthBoostType:
+	{
+		int healthBoost = ((PropHealthBoost*)_propManager->GetProp(propIndex))->GetBoostAmount();
+		int health = _playerManager->GetPlayer(playerIndex).GetSoldier(soldierIndex).GetHealth() + healthBoost;
+
+		_playerManager->GetPlayer(playerIndex).GetSoldier(soldierIndex).SetHealth(health, false);
+	}
+	break;
+
+	case AttackBoostType:
+	{
+		int attackBoost = ((PropAttackBoost*)_propManager->GetProp(propIndex))->GetBoostAmount();
+		int damage = _playerManager->GetPlayer(playerIndex).GetSoldier(soldierIndex).GetDamage() + attackBoost;
+
+		_playerManager->GetPlayer(playerIndex).GetSoldier(soldierIndex).SetDamage(damage);
+	}
+	break;
+	}
 }
 
 void GameManager::PlayMovementCycle()

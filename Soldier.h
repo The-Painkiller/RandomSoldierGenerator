@@ -6,7 +6,7 @@ class Soldier : public Object
 {
 public:
 	Soldier(SoldierType type, int initialHealth, int damage, int attackRange, GridCoordinates position);
-	~Soldier();
+	virtual ~Soldier();
 
 	virtual void Attack(int& enemyHealth) = 0;
 	virtual int GetSpeed() = 0;
