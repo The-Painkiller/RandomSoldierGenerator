@@ -9,6 +9,7 @@
 #include "GameLogger.h"
 #include "PropManager.h"
 #include "PropFactory.h"
+#include "Graphics2D.h"
 
 class GameManager : public EventHandler
 {
@@ -38,11 +39,15 @@ private:
 	SoldierFactory* _soldierFactory = new SoldierFactory();
 	PropFactory* _propFactory = new PropFactory();
 	PropManager* _propManager = new PropManager();
+	Graphics2D* _graphics = new Graphics2D();
 
 	bool _isGameOver = false;
 	
-	const GridCoordinates DefaultGridSize = { 100, 100 };
+	const GridCoordinates DefaultGridSize = { 50, 50 };
 	const int DefaultPropCountAtStart = 20;
+
+	const Color ColorPlayer01 = BLUE;
+	const Color ColorPlayer02 = RED;
 	
 	GridCoordinates GetRandomPosition(PlayerSide playerSide);
 	void PlaceSoldiers();

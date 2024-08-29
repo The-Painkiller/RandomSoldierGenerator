@@ -144,6 +144,7 @@
     <ClInclude Include="GameLogger.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GlobalEnums.h" />
+    <ClInclude Include="Graphics2D.h" />
     <ClInclude Include="GridManager.h" />
     <ClInclude Include="PropArmour.h" />
     <ClInclude Include="PropAttackBoost.h" />
@@ -167,6 +168,7 @@
     <ClCompile Include="Event.cpp" />
     <ClCompile Include="GameLogger.cpp" />
     <ClCompile Include="GameManager.cpp" />
+    <ClCompile Include="Graphics2D.cpp" />
     <ClCompile Include="GridManager.cpp" />
     <ClCompile Include="PropArmour.cpp" />
     <ClCompile Include="PropAttackBoost.cpp" />

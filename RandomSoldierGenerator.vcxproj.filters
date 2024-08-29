@@ -81,6 +81,9 @@
     <ClInclude Include="PropFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Graphics2D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Soldier.cpp">
@@ -147,6 +150,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="PropFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics2D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

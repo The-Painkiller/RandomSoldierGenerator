@@ -26,6 +26,9 @@ GameManager::~GameManager()
 
 	delete _propManager;
 	_propManager = nullptr;
+
+	delete _graphics;
+	_graphics = nullptr;
 }
 
 void GameManager::Initialize()
@@ -33,19 +36,26 @@ void GameManager::Initialize()
 	PlaceSoldiers();
 	PlaceProps();
 	_combatManager->RegisterEventHandler(this);
+
+	_graphics->Initialize(_gridManager->GetGridSize());
 }
 
 void GameManager::BeginBattle()
 {
 	_combatManager->Initialize(_playerManager->GetPlayers(), _playerManager->GetPlayerCount());
-	
-	while (!_playerManager->AreAllPlayersIdle() && !_isGameOver)
+
+	while (_graphics->WindowLoop())
 	{
-		//Soldiers prioritize attacking, then collecting props before moving to next position.
-		PlayAttackTurnCycle();
-		PlayPropCollectionCycle();
-		PlayMovementCycle();
+		if (!_playerManager->AreAllPlayersIdle()
+			&& !_isGameOver)
+		{
+			PlayAttackTurnCycle();
+			PlayPropCollectionCycle();
+			PlayMovementCycle();
+		}
 	}
+
+	_graphics->CloseGraphicsWindow();
 }
 
 void GameManager::PlayAttackTurnCycle()
@@ -108,7 +118,6 @@ void GameManager::PlayPropCollectionCycle()
 					_propManager->RemoveProp(k);
 					break;
 				}
-
 			}
 		}
 	}
