@@ -46,12 +46,26 @@ void Graphics2D::DrawGrid2D()
 {
 	for (int i = 0; i < _gridSize.Y; i++)
 	{
-		DrawLineV({ (float)i * _cellHeight, 0 }, { (float)i * _cellHeight, (float)ScreenHeight }, LIGHTGRAY);
+		for (int j = 0; j < _gridSize.X; j++)
+		{
+			GridCoordinates pos = { j, i };
+			/*if (_occupiedCells.find(pos) == _occupiedCells.end())
+			{
+				DrawRectangle(i * _cellWidth, j * _cellHeight, _cellWidth - 1, _cellHeight - 1, LIGHTGRAY);
+			}
+			else
+			{
+				DrawRectangle(i * _cellWidth, j * _cellHeight, _cellWidth - 1, _cellHeight - 1, _occupiedCells[pos]);
+			}*/
+		}
 	}
+}
 
-	for (int i = 0; i < _gridSize.X; i++)
+void Graphics2D::SetCellData(const GridCoordinates position, Color color)
+{
+	if (_occupiedCells.find(position) == _occupiedCells.end())
 	{
-		DrawLineV({ 0, (float)i * _cellWidth }, { (float)ScreenWidth, (float)i * _cellWidth }, LIGHTGRAY);
+		//_occupiedCells.insert({ position, color });
 	}
 }
 
@@ -79,9 +93,4 @@ void Graphics2D::CheckMouseButtonDown(MouseButton button)
 		_mouseDelta = Vector2Scale(_mouseDelta, -1.0f / _camera.zoom);
 		_camera.target = Vector2Add(_camera.target, _mouseDelta);
 	}
-}
-
-Camera2D Graphics2D::GetCamera()
-{
-	return _camera;
 }

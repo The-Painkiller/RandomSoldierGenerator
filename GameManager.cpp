@@ -72,7 +72,7 @@ void GameManager::PlayAttackTurnCycle()
 		{
 			_combatManager->SetCurrentTurn(i);
 			_combatManager->BeginCurrentAttack();
-			std::this_thread::sleep_for(std::chrono::milliseconds(0));
+			std::this_thread::sleep_for(std::chrono::milliseconds(3000));
 		}
 		else
 		{
@@ -268,7 +268,7 @@ void GameManager::RefreshGridPositions()
 		if (_propManager->GetProp(i) != nullptr)
 		{
 			GridCoordinates pos = _propManager->GetProp(i)->GetPosition();
-
+			_graphics->SetCellData(pos, ColorProp);
 			_gridManager->OccupyPosition(pos);
 		}
 	}
@@ -279,7 +279,7 @@ void GameManager::RefreshGridPositions()
 		for (int j = 0; j < _playerManager->GetPlayer(i).GetArmySize(); j++)
 		{
 			GridCoordinates pos = _playerManager->GetPlayer(i).GetSoldier(j).GetPosition();
-
+			_graphics->SetCellData(pos, i == 0 ? ColorPlayer01 : ColorPlayer02);
 			_gridManager->OccupyPosition(pos);
 		}
 	}

@@ -48,6 +48,7 @@ private:
 
 	const Color ColorPlayer01 = BLUE;
 	const Color ColorPlayer02 = RED;
+	const Color ColorProp = MAGENTA;
 	
 	GridCoordinates GetRandomPosition(PlayerSide playerSide);
 	void PlaceSoldiers();

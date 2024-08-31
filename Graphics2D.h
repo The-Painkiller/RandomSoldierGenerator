@@ -2,6 +2,15 @@
 #include "GlobalEnums.h"
 #include <raylib.h>
 #include <raymath.h>
+#include <map>
+
+struct GridCell 
+{
+public:
+	GridCoordinates Position = {};
+	Color CellColor = LIGHTGRAY;
+};
+
 class Graphics2D
 {
 public:
@@ -10,10 +19,10 @@ public:
 	void Initialize(GridCoordinates gridSize);
 	void CloseGraphicsWindow();
 	bool WindowLoop();
-	void DrawGrid2D();
 	void CheckMouseScroll();
 	void CheckMouseButtonDown(MouseButton button);
-	Camera2D GetCamera();
+	void DrawGrid2D();
+	void SetCellData(const GridCoordinates cellPosition, Color color);
 
 private:
 	const int ScreenWidth = 1000;
@@ -30,5 +39,6 @@ private:
 
 	GridCoordinates _gridSize = {};
 	Camera2D _camera = {};
+	std::map<GridCoordinates, Color> _occupiedCells;
 };
 
