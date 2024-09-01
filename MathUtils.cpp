@@ -14,14 +14,14 @@ int MathUtils::NewPosition(int direction, int currentPosOnMoveAxis, int boundary
 		newPos = currentPosOnMoveAxis + speed;
 		if (newPos >= boundaryPosOnMoveAxis)
 		{
-			newPos = boundaryPosOnMoveAxis;
+			newPos = boundaryPosOnMoveAxis - 1;
 		}
 		break;
 	case 2://Right
 		newPos = currentPosOnMoveAxis - speed;
-		if (newPos <= boundaryPosOnMoveAxis)
+		if (newPos < 0)
 		{
-			newPos = boundaryPosOnMoveAxis;
+			newPos = 0;
 		}
 		break;
 	default:

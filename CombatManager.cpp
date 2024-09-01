@@ -64,6 +64,7 @@ bool CombatManager::SeekAndDestroy(int attackingSoldierId)
 			{
 				_currentPlayersList[_enemySoldiersOnGround[i]->GetParentPlayerId()]->KillSoldier(_enemySoldiersOnGround[i]);
 				_enemySoldiersOnGround.erase(_enemySoldiersOnGround.begin() + i);
+				_event->Invoke(SoldierDeath, enemyPosX, enemyPosY);
 			}
 			return true;
 		}

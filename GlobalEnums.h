@@ -3,6 +3,16 @@ struct GridCoordinates
 {
 	int X;
 	int Y;
+
+	bool operator < (const GridCoordinates& rhs) const
+	{
+		return this->X < rhs.X || this->Y < rhs.Y;
+	}
+
+	bool operator == (const GridCoordinates& rhs) const
+	{
+		return this->X == rhs.X && this->Y == rhs.Y;
+	}
 };
 
 enum SoldierType
@@ -16,7 +26,8 @@ enum SoldierType
 
 enum GameEvent
 {
-	GameOver = 1
+	GameOver = 1,
+	SoldierDeath = 2
 };
 
 enum PlayerSide

@@ -38,6 +38,7 @@ void GameManager::Initialize()
 	_combatManager->RegisterEventHandler(this);
 
 	_graphics->Initialize(_gridManager->GetGridSize());
+	RefreshGridPositions();
 }
 
 void GameManager::BeginBattle()
@@ -52,6 +53,7 @@ void GameManager::BeginBattle()
 			PlayAttackTurnCycle();
 			PlayPropCollectionCycle();
 			PlayMovementCycle();
+			RefreshGridPositions();
 		}
 	}
 
@@ -72,7 +74,7 @@ void GameManager::PlayAttackTurnCycle()
 		{
 			_combatManager->SetCurrentTurn(i);
 			_combatManager->BeginCurrentAttack();
-			std::this_thread::sleep_for(std::chrono::milliseconds(3000));
+			std::this_thread::sleep_for(std::chrono::milliseconds(2000));
 		}
 		else
 		{
@@ -121,7 +123,6 @@ void GameManager::PlayPropCollectionCycle()
 			}
 		}
 	}
-	RefreshGridPositions();
 }
 
 void GameManager::ConsumePropByType(int propIndex, int playerIndex, int soldierIndex)
@@ -178,12 +179,26 @@ void GameManager::LogPlayerArmies()
 	}
 }
 
-void GameManager::HandleEvent(GameEvent type)
+void GameManager::DrawSoldier(const GridCoordinates& pos, int playerID)
+{
+	_graphics->DrawObject(pos.X, pos.Y, playerID == 0 ? ColorPlayer01 : ColorPlayer02);
+}
+
+void GameManager::DrawProp(const GridCoordinates& pos)
+{
+	_graphics->DrawObject(pos.X, pos.Y, ColorProp);
+}
+
+void GameManager::HandleEvent(GameEvent type, int args1, int args2)
 {
 	switch (type)
 	{
 	case GameOver:
 		_isGameOver = true;
+		break;
+
+	case SoldierDeath:
+		_graphics->DrawObject(args1, args2, LIGHTGRAY);
 		break;
 	}
 }
@@ -260,16 +275,15 @@ void GameManager::PlaceProps()
 
 void GameManager::RefreshGridPositions()
 {
-	_gridManager->ClearPositions();
-
+	_graphics->ResetCellData();
 	//position of remaining props.
 	for (int i = 0; i < _propManager->GetPropsCount(); i++)
 	{
 		if (_propManager->GetProp(i) != nullptr)
 		{
 			GridCoordinates pos = _propManager->GetProp(i)->GetPosition();
-			_graphics->SetCellData(pos, ColorProp);
 			_gridManager->OccupyPosition(pos);
+			_graphics->SetCellData(pos, ColorProp);
 		}
 	}
 
@@ -279,8 +293,8 @@ void GameManager::RefreshGridPositions()
 		for (int j = 0; j < _playerManager->GetPlayer(i).GetArmySize(); j++)
 		{
 			GridCoordinates pos = _playerManager->GetPlayer(i).GetSoldier(j).GetPosition();
-			_graphics->SetCellData(pos, i == 0 ? ColorPlayer01 : ColorPlayer02);
 			_gridManager->OccupyPosition(pos);
+			_graphics->SetCellData(pos, i == 0 ? ColorPlayer01 : ColorPlayer02);
 		}
 	}
 }

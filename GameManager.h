@@ -26,8 +26,10 @@ public:
 	void PlayPropCollectionCycle();
 	void PlayMovementCycle();
 	void LogPlayerArmies();
+	void DrawSoldier(const GridCoordinates& pos, int playerID);
+	void DrawProp(const GridCoordinates& pos);
 
-	void HandleEvent(GameEvent type) override;
+	void HandleEvent(GameEvent type, int args1, int args2) override;
 
 	Player& GetPlayer(int index);
 	int GetCurrentPlayerCount();

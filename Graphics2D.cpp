@@ -11,6 +11,8 @@ void Graphics2D::Initialize(GridCoordinates gridSize)
 
 	_camera.rotation = 0.0f;
 	_camera.zoom = 1.0f;
+
+	ResetCellData();
 }
 
 void Graphics2D::CloseGraphicsWindow()
@@ -48,25 +50,24 @@ void Graphics2D::DrawGrid2D()
 	{
 		for (int j = 0; j < _gridSize.X; j++)
 		{
-			GridCoordinates pos = { j, i };
-			/*if (_occupiedCells.find(pos) == _occupiedCells.end())
-			{
-				DrawRectangle(i * _cellWidth, j * _cellHeight, _cellWidth - 1, _cellHeight - 1, LIGHTGRAY);
-			}
-			else
-			{
-				DrawRectangle(i * _cellWidth, j * _cellHeight, _cellWidth - 1, _cellHeight - 1, _occupiedCells[pos]);
-			}*/
+			DrawRectangle(i * _cellWidth, j * _cellHeight, _cellWidth - 1, _cellHeight - 1, _occupiedCells[j][i]);
 		}
 	}
 }
 
-void Graphics2D::SetCellData(const GridCoordinates position, Color color)
+void Graphics2D::SetCellData(const GridCoordinates& position, Color color)
 {
-	if (_occupiedCells.find(position) == _occupiedCells.end())
-	{
-		//_occupiedCells.insert({ position, color });
-	}
+	_occupiedCells[position.X][position.Y] = color;
+}
+
+void Graphics2D::ResetCellData()
+{
+	_occupiedCells.assign(_gridSize.X, std::vector<Color>(_gridSize.Y, LIGHTGRAY));
+}
+
+void Graphics2D::DrawObject(int posX, int posY, Color color)
+{
+	DrawRectangle(posX * _cellWidth, posY * _cellHeight, _cellWidth - 1, _cellHeight - 1, color);
 }
 
 void Graphics2D::CheckMouseScroll()

@@ -1,5 +1,6 @@
 #pragma once
 #include "Player.h"
+#include "Event.h"
 #include<vector>
 
 class PlayerManager
