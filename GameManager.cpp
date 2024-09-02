@@ -45,11 +45,12 @@ void GameManager::BeginBattle()
 {
 	_combatManager->Initialize(_playerManager->GetPlayers(), _playerManager->GetPlayerCount());
 
-	while (_graphics->WindowLoop())
+	while (!_graphics->ShouldGraphicsWindowClose())
 	{
 		if (!_playerManager->AreAllPlayersIdle()
 			&& !_isGameOver)
 		{
+			_graphics->WindowLoop();
 			PlayAttackTurnCycle();
 			PlayPropCollectionCycle();
 			PlayMovementCycle();
@@ -74,7 +75,7 @@ void GameManager::PlayAttackTurnCycle()
 		{
 			_combatManager->SetCurrentTurn(i);
 			_combatManager->BeginCurrentAttack();
-			std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+			std::this_thread::sleep_for(std::chrono::milliseconds(ThreadSleepTime));
 		}
 		else
 		{
@@ -117,7 +118,11 @@ void GameManager::PlayPropCollectionCycle()
 					ConsumePropByType(k, i, j);
 
 					GameLogger::LogPropConsumption(i, j, _propManager->GetProp(k));
+					
+					_graphics->DrawObject(_propManager->GetProp(k)->GetPosition().X, _propManager->GetProp(k)->GetPosition().Y, LIGHTGRAY);
+					
 					_propManager->RemoveProp(k);
+
 					break;
 				}
 			}
@@ -166,6 +171,7 @@ void GameManager::PlayMovementCycle()
 	for (int i = 0; i < _playerManager->GetPlayerCount(); i++)
 	{
 		_playerManager->GetPlayer(i).MoveArmy(DefaultGridSize);
+		std::this_thread::sleep_for(std::chrono::milliseconds(ThreadSleepTime));
 	}
 
 	LogPlayerArmies();
@@ -179,26 +185,34 @@ void GameManager::LogPlayerArmies()
 	}
 }
 
-void GameManager::DrawSoldier(const GridCoordinates& pos, int playerID)
-{
-	_graphics->DrawObject(pos.X, pos.Y, playerID == 0 ? ColorPlayer01 : ColorPlayer02);
-}
-
-void GameManager::DrawProp(const GridCoordinates& pos)
-{
-	_graphics->DrawObject(pos.X, pos.Y, ColorProp);
-}
-
 void GameManager::HandleEvent(GameEvent type, int args1, int args2)
 {
 	switch (type)
 	{
 	case GameOver:
 		_isGameOver = true;
+		if (args1 == 0)
+		{
+			_graphics->DrawGraphicsText("Player02 Wins!");
+		}
+		else
+		{
+			_graphics->DrawGraphicsText("Player01 Wins!");
+		}
 		break;
 
 	case SoldierDeath:
 		_graphics->DrawObject(args1, args2, LIGHTGRAY);
+		break;
+	}
+}
+
+void GameManager::HandleEvent(GameEvent type, const GridCoordinates arg1, int arg2)
+{
+	switch (type)
+	{
+	case SoldierHurt:
+		_graphics->DrawObject(arg1.X, arg1.Y, arg2 == 0 ? ColorHurtPlayer01 : ColorHurtPlayer02);
 		break;
 	}
 }
@@ -294,7 +308,17 @@ void GameManager::RefreshGridPositions()
 		{
 			GridCoordinates pos = _playerManager->GetPlayer(i).GetSoldier(j).GetPosition();
 			_gridManager->OccupyPosition(pos);
-			_graphics->SetCellData(pos, i == 0 ? ColorPlayer01 : ColorPlayer02);
+			Color col;
+			if (i == 0)
+			{
+				col = _playerManager->GetPlayer(i).GetSoldier(j).GetHealth() < _playerManager->GetPlayer(i).GetSoldier(j).GetDefaultHealth() ? ColorHurtPlayer01 : ColorPlayer01;
+			}
+			else
+			{
+				col = _playerManager->GetPlayer(i).GetSoldier(j).GetHealth() < _playerManager->GetPlayer(i).GetSoldier(j).GetDefaultHealth() ? ColorHurtPlayer02 : ColorPlayer02;
+			}
+
+			_graphics->SetCellData(pos, col);
 		}
 	}
 }

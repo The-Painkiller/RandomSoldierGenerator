@@ -5,7 +5,10 @@ class SoldierSniper : public Soldier
 {
 public:
 	SoldierSniper(int initialHealth, int damage, int attackRange, GridCoordinates startPosition) :
-		Soldier(Sniper, initialHealth, damage, attackRange, startPosition){}
+		Soldier(Sniper, initialHealth, damage, attackRange, startPosition)
+	{
+		_defaultHealth = initialHealth;
+	}
 
 	~SoldierSniper() {}
 

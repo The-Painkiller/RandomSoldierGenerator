@@ -5,7 +5,10 @@ class SoldierMarine : public Soldier
 {
 public:
 	SoldierMarine(int initialHealth, int damage, int attackRange, GridCoordinates startPosition) :
-		Soldier(Marine, initialHealth, damage, attackRange, startPosition) {}
+		Soldier(Marine, initialHealth, damage, attackRange, startPosition)
+	{
+		_defaultHealth = initialHealth;
+	}
 
 	~SoldierMarine() {}
 

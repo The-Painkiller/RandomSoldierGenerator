@@ -6,7 +6,10 @@ class SoldierGreenBeret : public Soldier
 {
 public:
 	SoldierGreenBeret(int initialHealth, int damage, int attackRange, GridCoordinates startPosition) :
-		Soldier(GreenBeret, initialHealth, damage, attackRange, startPosition) {}
+		Soldier(GreenBeret, initialHealth, damage, attackRange, startPosition) 
+	{
+		_defaultHealth = initialHealth;
+	}
 
 	~SoldierGreenBeret(){}
 

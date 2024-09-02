@@ -18,6 +18,7 @@ public:
 	void SetPosition(GridCoordinates position) override;
 	GridCoordinates GetPosition() override;
 
+	int GetDefaultHealth();
 	int GetHealth();
 	int GetDamage();
 	int GetParentPlayerId();
@@ -27,6 +28,7 @@ public:
 
 protected:
 	void ReduceEnemyHealth(int& enemyHealth);
+	int _defaultHealth = 0;
 
 private:
 	int _parentPlayerId = -1;

@@ -5,7 +5,10 @@ class SoldierSpy : public Soldier
 {
 public:
 	SoldierSpy(int initialHealth, int damage, int attackRange, GridCoordinates startPosition) :
-		Soldier(Spy, initialHealth, damage, attackRange, startPosition){}
+		Soldier(Spy, initialHealth, damage, attackRange, startPosition)
+	{
+		_defaultHealth = initialHealth;
+	}
 
 	~SoldierSpy() {}
 

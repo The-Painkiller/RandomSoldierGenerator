@@ -2,6 +2,8 @@
 #include "Soldier.h"
 #include "MathUtils.h"
 #include<vector>
+#include <thread>
+#include<chrono>
 class Player
 {
 public:

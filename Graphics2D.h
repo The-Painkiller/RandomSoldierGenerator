@@ -4,20 +4,29 @@
 #include <raymath.h>
 #include<vector>
 
+struct GridRect
+{
+public:
+	Rectangle Rect;
+	Color RectColor;
+};
+
 class Graphics2D
 {
 public:
 	Graphics2D() = default;
-	~Graphics2D() = default;
+	~Graphics2D();
+	bool ShouldGraphicsWindowClose();
 	void Initialize(GridCoordinates gridSize);
 	void CloseGraphicsWindow();
-	bool WindowLoop();
+	void WindowLoop();
 	void CheckMouseScroll();
 	void CheckMouseButtonDown(MouseButton button);
 	void DrawGrid2D();
 	void SetCellData(const GridCoordinates& cellPosition, Color color);
 	void ResetCellData();
 	void DrawObject(int posX, int posY, Color color);
+	void DrawGraphicsText(const char* text);
 
 private:
 	const int ScreenWidth = 1000;
@@ -34,6 +43,5 @@ private:
 
 	GridCoordinates _gridSize = {};
 	Camera2D _camera = {};
-	std::vector<std::vector<Color>> _occupiedCells;
+	std::vector<std::vector<GridRect>> _occupiedCells;
 };
-

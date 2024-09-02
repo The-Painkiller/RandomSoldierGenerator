@@ -1,5 +1,6 @@
 #include "CombatManager.h"
 
+
 void CombatManager::Initialize(const std::vector<Player*>& playerList, const int playerCount)
 {
 	_currentPlayersList = playerList;
@@ -60,12 +61,15 @@ bool CombatManager::SeekAndDestroy(int attackingSoldierId)
 
 			GameLogger::LogAttack(_currentAttackingPlayerId, attackingSoldierId, _enemySoldiersOnGround[i]->GetParentPlayerId(), i, _enemySoldiersOnGround[i]->GetHealth());
 
+			_event->Invoke(SoldierHurt, {enemyPosX, enemyPosY}, _enemySoldiersOnGround[i]->GetParentPlayerId());
+
 			if (enemyHealth <= 0)
 			{
 				_currentPlayersList[_enemySoldiersOnGround[i]->GetParentPlayerId()]->KillSoldier(_enemySoldiersOnGround[i]);
 				_enemySoldiersOnGround.erase(_enemySoldiersOnGround.begin() + i);
 				_event->Invoke(SoldierDeath, enemyPosX, enemyPosY);
 			}
+			std::this_thread::sleep_for(std::chrono::milliseconds(ThreadSleepTime));
 			return true;
 		}
 	}
@@ -79,8 +83,8 @@ void CombatManager::CheckArmyStatus()
 		 if (_currentPlayersList[i]->GetArmySize() <= 0)
 		{
 			 _currentPlayersList[i]->SetDefeated();
-			 _event->Invoke(GameOver);
-			GameLogger::LogResult(_currentPlayersList[i]->GetPlayerId(), false);
+			 _event->Invoke(GameOver, i, -1);
+			GameLogger::LogResult(_currentPlayersList[i]->GetPlayerId() + 1, false);
 			break;
 		}
 	}

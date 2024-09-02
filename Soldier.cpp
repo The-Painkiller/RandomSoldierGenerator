@@ -84,6 +84,11 @@ GridCoordinates Soldier::GetPosition()
 	return _position;
 }
 
+int Soldier::GetDefaultHealth()
+{
+	return _defaultHealth;
+}
+
 int Soldier::GetHealth()
 {
 	return _health;

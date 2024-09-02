@@ -1,7 +1,4 @@
 #pragma once
-#include<cstdlib>
-#include<thread>
-#include<chrono>
 #include"PlayerManager.h"
 #include"GridManager.h"
 #include "SoldierFactory.h"
@@ -26,10 +23,9 @@ public:
 	void PlayPropCollectionCycle();
 	void PlayMovementCycle();
 	void LogPlayerArmies();
-	void DrawSoldier(const GridCoordinates& pos, int playerID);
-	void DrawProp(const GridCoordinates& pos);
 
 	void HandleEvent(GameEvent type, int args1, int args2) override;
+	void HandleEvent(GameEvent type, const GridCoordinates arg1, int arg2) override;
 
 	Player& GetPlayer(int index);
 	int GetCurrentPlayerCount();
@@ -49,8 +45,10 @@ private:
 	const int DefaultPropCountAtStart = 20;
 
 	const Color ColorPlayer01 = BLUE;
+	const Color ColorHurtPlayer01 = SKYBLUE;
 	const Color ColorPlayer02 = RED;
-	const Color ColorProp = MAGENTA;
+	const Color ColorHurtPlayer02 = PINK;
+	const Color ColorProp = ORANGE;
 	
 	GridCoordinates GetRandomPosition(PlayerSide playerSide);
 	void PlaceSoldiers();
