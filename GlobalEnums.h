@@ -28,7 +28,8 @@ enum GameEvent
 {
 	GameOver = 1,
 	SoldierDeath = 2,
-	SoldierHurt = 3
+	SoldierHurt = 3,
+	SoldierMove = 4
 };
 
 enum PlayerSide
@@ -46,4 +47,4 @@ enum PropType
 	AttackBoostType = 3
 };
 
-const int ThreadSleepTime = 500;
+const int ThreadSleepTime = 100;

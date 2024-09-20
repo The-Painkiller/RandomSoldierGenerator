@@ -1,19 +1,20 @@
 #pragma once
 #include"Object.h"
 #include "PropArmour.h"
+#include <memory>
 
 class Soldier : public Object
 {
 public:
 	Soldier(SoldierType type, int initialHealth, int damage, int attackRange, GridCoordinates position);
-	virtual ~Soldier();
+	virtual ~Soldier() = default;
 
 	virtual void Attack(int& enemyHealth) = 0;
 	virtual int GetSpeed() = 0;
 
 	void SetPlayerId(int Id);
 	void SetHealth(int health, bool isDamage);
-	void SetArmour(PropArmour* armour);
+	void SetArmour(const PropArmour& armour);
 	void SetDamage(int damage);
 	void SetPosition(GridCoordinates position) override;
 	GridCoordinates GetPosition() override;
@@ -38,6 +39,5 @@ private:
 
 	SoldierType _type;
 
-	PropArmour* _armour = nullptr;
-	void RemoveArmour();
+	std::unique_ptr<PropArmour> _armour;
 };

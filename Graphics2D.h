@@ -25,7 +25,8 @@ public:
 	void DrawGrid2D();
 	void SetCellData(const GridCoordinates& cellPosition, Color color);
 	void ResetCellData();
-	void DrawObject(int posX, int posY, Color color);
+	void DrawObject(const GridCoordinates& cellPosition, Color color);
+	void DrawObjects();
 	void DrawGraphicsText(const char* text);
 
 private:

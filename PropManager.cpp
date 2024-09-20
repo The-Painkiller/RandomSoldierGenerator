@@ -21,11 +21,11 @@ void PropManager::RemoveProp(const int propIndex)
 	_props.erase(_props.begin() + propIndex);
 }
 
-Prop* PropManager::GetProp(int index)
+Prop& PropManager::GetProp(int index)
 {
 	if (_props[index] != nullptr)
 	{
-		return _props[index];
+		return *_props[index];
 	}
 }
 

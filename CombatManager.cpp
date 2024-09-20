@@ -67,7 +67,8 @@ bool CombatManager::SeekAndDestroy(int attackingSoldierId)
 			{
 				_currentPlayersList[_enemySoldiersOnGround[i]->GetParentPlayerId()]->KillSoldier(_enemySoldiersOnGround[i]);
 				_enemySoldiersOnGround.erase(_enemySoldiersOnGround.begin() + i);
-				_event->Invoke(SoldierDeath, enemyPosX, enemyPosY);
+				_event->Invoke(SoldierDeath, {enemyPosX, enemyPosY
+			}, Event::NullIntArg);
 			}
 			std::this_thread::sleep_for(std::chrono::milliseconds(ThreadSleepTime));
 			return true;
@@ -83,16 +84,16 @@ void CombatManager::CheckArmyStatus()
 		 if (_currentPlayersList[i]->GetArmySize() <= 0)
 		{
 			 _currentPlayersList[i]->SetDefeated();
-			 _event->Invoke(GameOver, i, -1);
+			 _event->Invoke(GameOver, Event::NullGridArg, i);
 			GameLogger::LogResult(_currentPlayersList[i]->GetPlayerId() + 1, false);
 			break;
 		}
 	}
 }
 
-void CombatManager::RegisterEventHandler(EventHandler* handler)
+void CombatManager::RegisterEventHandler(EventHandler& handler)
 {
-	_event->Register(handler);
+	_event->Register(&handler);
 }
 
 int CombatManager::GetCurrentAttackingPlayerId()

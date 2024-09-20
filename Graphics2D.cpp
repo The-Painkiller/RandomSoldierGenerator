@@ -88,12 +88,12 @@ void Graphics2D::ResetCellData()
 	}
 }
 
-void Graphics2D::DrawObject(int posX, int posY, Color color)
+void Graphics2D::DrawObject(const GridCoordinates& cellPosition, Color color)
 {
 	BeginDrawing();
 	ClearBackground(RAYWHITE);
 	BeginMode2D(_camera);
-	_occupiedCells[posX][posY].RectColor = color;
+	_occupiedCells[cellPosition.X][cellPosition.Y].RectColor = color;
 	DrawGrid2D();
 	EndMode2D();
 	EndDrawing();

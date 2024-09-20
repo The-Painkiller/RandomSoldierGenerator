@@ -15,7 +15,7 @@ public:
 	void SetCurrentTurn(int playerId);
 	void BeginCurrentAttack();
 	void CheckArmyStatus();
-	void RegisterEventHandler(EventHandler* handler);
+	void RegisterEventHandler(EventHandler& handler);
 	int GetCurrentAttackingPlayerId();
 
 private:
@@ -25,5 +25,5 @@ private:
 	std::vector<Player*> _currentPlayersList;
 	std::vector<Soldier*> _enemySoldiersOnGround;
 	bool SeekAndDestroy(int attackingSoldierId);
-	Event* _event = new Event();
+	unique_ptr<Event> _event = unique_ptr<Event>(new Event());
 };

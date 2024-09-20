@@ -24,20 +24,20 @@ public:
 	void PlayMovementCycle();
 	void LogPlayerArmies();
 
-	void HandleEvent(GameEvent type, int args1, int args2) override;
-	void HandleEvent(GameEvent type, const GridCoordinates arg1, int arg2) override;
+	void HandleEvent(GameEvent type, const GridCoordinates arg1, const int arg2) override;
+	void HandleEvent(GameEvent type, const GridCoordinates prevPos, const GridCoordinates newPos, const int playerID) override;
 
 	Player& GetPlayer(int index);
 	int GetCurrentPlayerCount();
 
 private:
-	PlayerManager* _playerManager = nullptr;
-	GridManager* _gridManager = nullptr;
-	CombatManager* _combatManager = nullptr;
-	SoldierFactory* _soldierFactory = new SoldierFactory();
-	PropFactory* _propFactory = new PropFactory();
-	PropManager* _propManager = new PropManager();
-	Graphics2D* _graphics = new Graphics2D();
+	unique_ptr<PlayerManager> _playerManager = nullptr;
+	unique_ptr<GridManager> _gridManager = nullptr;
+	unique_ptr<CombatManager> _combatManager = nullptr;
+	unique_ptr<SoldierFactory> _soldierFactory = unique_ptr<SoldierFactory>(new SoldierFactory());
+	unique_ptr<PropFactory> _propFactory = unique_ptr<PropFactory>(new PropFactory());
+	unique_ptr<PropManager> _propManager = unique_ptr<PropManager>(new PropManager());
+	unique_ptr<Graphics2D> _graphics = unique_ptr<Graphics2D>(new Graphics2D());
 
 	bool _isGameOver = false;
 	

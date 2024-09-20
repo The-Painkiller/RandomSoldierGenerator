@@ -11,7 +11,7 @@ public:
 
 	void AddProp(Prop* prop);
 	void RemoveProp(const int propIndex);
-	Prop *GetProp(int index);
+	Prop& GetProp(int index);
 	int GetPropsCount();
 
 private:

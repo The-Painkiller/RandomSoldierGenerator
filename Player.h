@@ -1,6 +1,7 @@
 #pragma once
 #include "Soldier.h"
 #include "MathUtils.h"
+#include "Event.h"
 #include<vector>
 #include <thread>
 #include<chrono>
@@ -22,6 +23,7 @@ public:
 	void KillSoldier(Soldier* dyingSoldier);
 	void MoveArmy(GridCoordinates boundary);
 	void SetDefeated();
+	static void RegisterEventHandler(EventHandler& handler);
 	bool IsDefeated();
 
 private:
@@ -31,4 +33,5 @@ private:
 	bool _isPlayerDefeated = false;
 	PlayerSide _playerSide = NoSide;
 	std::vector<Soldier*> _soldiers;
+	static Event* PlayerEvent;
 };

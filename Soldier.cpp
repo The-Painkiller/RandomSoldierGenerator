@@ -9,14 +9,6 @@ Soldier::Soldier(SoldierType type, int initialHealth, int damage, int attackRang
 	_attackRange = attackRange;
 }
 
-Soldier::~Soldier()
-{
-	delete _armour;
-	_armour = nullptr;
-
-	_type = SoldierType::None;
-}
-
 void Soldier::SetPlayerId(int Id)
 {
 	_parentPlayerId = Id;
@@ -32,14 +24,7 @@ void Soldier::SetHealth(int newHealth, bool isDamage)
 		int damageTaken = _health - newHealth;
 
 		armourAmount -= damageTaken;
-		if (armourAmount <= 0)
-		{
-			RemoveArmour();
-		}
-		else
-		{
-			_armour->SetArmourAmount(armourAmount);
-		}
+		_armour->SetArmourAmount(armourAmount);
 
 		if (damageTaken < healthAffectThreshold)
 		{
@@ -64,9 +49,9 @@ void Soldier::SetHealth(int newHealth, bool isDamage)
 	}
 }
 
-void Soldier::SetArmour(PropArmour* armour)
+void Soldier::SetArmour(const PropArmour& armour)
 {
-	_armour = new PropArmour(*armour);
+	_armour = std::make_unique<PropArmour>(armour);
 }
 
 void Soldier::SetDamage(int damage)
@@ -117,10 +102,4 @@ double Soldier::GetAttackRange()
 void Soldier::ReduceEnemyHealth(int& enemyHealth)
 {
 	enemyHealth -= GetDamage();
-}
-
-void Soldier::RemoveArmour()
-{
-	delete _armour;
-	_armour = nullptr;
 }

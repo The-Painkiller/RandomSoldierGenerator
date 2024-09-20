@@ -1,5 +1,7 @@
 #include "Player.h"
 
+Event* Player::PlayerEvent = new Event();
+
 Player::Player(int initialArmySize, int playerId, PlayerSide playerSide)
 {
 	_armySize = initialArmySize;
@@ -15,6 +17,9 @@ Player::~Player()
 	}
 
 	_soldiers.clear();
+
+	delete PlayerEvent;
+	PlayerEvent = nullptr;
 }
 
 void Player::AddSoldier(Soldier* soldier)
@@ -76,12 +81,21 @@ void Player::MoveArmy(GridCoordinates boundary)
 		pos = _soldiers[i]->GetPosition();
 		pos.X = MathUtils::NewPosition(_playerSide, pos.X, boundary.X, _soldiers[i]->GetSpeed());
 		_soldiers[i]->SetPosition(pos);
+
+		PlayerEvent->Invoke(SoldierMove, pos, _soldiers[i]->GetParentPlayerId());
+
+		std::this_thread::sleep_for(std::chrono::milliseconds(ThreadSleepTime));
 	}
 }
 
 void Player::SetDefeated()
 {
 	_isPlayerDefeated = true;
+}
+
+void Player::RegisterEventHandler(EventHandler& handler)
+{
+	PlayerEvent->Register(&handler);
 }
 
 bool Player::IsDefeated()

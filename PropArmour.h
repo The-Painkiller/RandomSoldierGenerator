@@ -10,7 +10,7 @@ public:
 		_healthDamagePercentage = healthDamagePercentage;
 	}
 	PropArmour() = delete;
-	~PropArmour() {}
+	~PropArmour() = default;
 
 	int GetArmourAmount();
 	int GetHealthAffectThreshold();
