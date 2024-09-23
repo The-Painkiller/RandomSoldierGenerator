@@ -94,9 +94,9 @@ void GameManager::PlayPropCollectionCycle()
 		{
 			for (int k = 0; k < _propManager->GetPropsCount(); k++)
 			{
-				int soldierPosX = _playerManager->GetPlayer(i).GetSoldier(j).GetPosition().X;
-				int soldierPosY = _playerManager->GetPlayer(i).GetSoldier(j).GetPosition().Y;
-				int soldierRange = _playerManager->GetPlayer(i).GetSoldier(j).GetAttackRange();
+				int soldierPosX = _playerManager->GetPlayer(i).GetSoldier(j).get()->GetPosition().X;
+				int soldierPosY = _playerManager->GetPlayer(i).GetSoldier(j).get()->GetPosition().Y;
+				int soldierRange = _playerManager->GetPlayer(i).GetSoldier(j).get()->GetAttackRange();
 
 				int propPosX = _propManager->GetProp(k).GetPosition().X;
 				int propPosY = _propManager->GetProp(k).GetPosition().Y;
@@ -124,25 +124,25 @@ void GameManager::ConsumePropByType(int propIndex, int playerIndex, int soldierI
 	{
 	case ArmourType:
 	{
-		_playerManager->GetPlayer(playerIndex).GetSoldier(soldierIndex).SetArmour((PropArmour&)_propManager->GetProp(propIndex));
+		_playerManager->GetPlayer(playerIndex).GetSoldier(soldierIndex).get()->SetArmour((PropArmour&)_propManager->GetProp(propIndex));
 	}
 	break;
 
 	case HealthBoostType:
 	{
 		int healthBoost = ((PropHealthBoost&)_propManager->GetProp(propIndex)).GetBoostAmount();
-		int health = _playerManager->GetPlayer(playerIndex).GetSoldier(soldierIndex).GetHealth() + healthBoost;
+		int health = _playerManager->GetPlayer(playerIndex).GetSoldier(soldierIndex).get()->GetHealth() + healthBoost;
 
-		_playerManager->GetPlayer(playerIndex).GetSoldier(soldierIndex).SetHealth(health, false);
+		_playerManager->GetPlayer(playerIndex).GetSoldier(soldierIndex).get()->SetHealth(health, false);
 	}
 	break;
 
 	case AttackBoostType:
 	{
 		int attackBoost = ((PropAttackBoost&)_propManager->GetProp(propIndex)).GetBoostAmount();
-		int damage = _playerManager->GetPlayer(playerIndex).GetSoldier(soldierIndex).GetDamage() + attackBoost;
+		int damage = _playerManager->GetPlayer(playerIndex).GetSoldier(soldierIndex).get()->GetDamage() + attackBoost;
 
-		_playerManager->GetPlayer(playerIndex).GetSoldier(soldierIndex).SetDamage(damage);
+		_playerManager->GetPlayer(playerIndex).GetSoldier(soldierIndex).get()->SetDamage(damage);
 	}
 	break;
 	}
@@ -296,16 +296,16 @@ void GameManager::RefreshGridPositions()
 	{
 		for (int j = 0; j < _playerManager->GetPlayer(i).GetArmySize(); j++)
 		{
-			GridCoordinates pos = _playerManager->GetPlayer(i).GetSoldier(j).GetPosition();
+			GridCoordinates pos = _playerManager->GetPlayer(i).GetSoldier(j).get()->GetPosition();
 			_gridManager->OccupyPosition(pos);
 			Color col;
 			if (i == 0)
 			{
-				col = _playerManager->GetPlayer(i).GetSoldier(j).GetHealth() < _playerManager->GetPlayer(i).GetSoldier(j).GetDefaultHealth() ? ColorHurtPlayer01 : ColorPlayer01;
+				col = _playerManager->GetPlayer(i).GetSoldier(j).get()->GetHealth() < _playerManager->GetPlayer(i).GetSoldier(j).get()->GetDefaultHealth() ? ColorHurtPlayer01 : ColorPlayer01;
 			}
 			else
 			{
-				col = _playerManager->GetPlayer(i).GetSoldier(j).GetHealth() < _playerManager->GetPlayer(i).GetSoldier(j).GetDefaultHealth() ? ColorHurtPlayer02 : ColorPlayer02;
+				col = _playerManager->GetPlayer(i).GetSoldier(j).get()->GetHealth() < _playerManager->GetPlayer(i).GetSoldier(j).get()->GetDefaultHealth() ? ColorHurtPlayer02 : ColorPlayer02;
 			}
 
 			_graphics->SetCellData(pos, col);

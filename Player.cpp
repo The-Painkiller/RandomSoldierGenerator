@@ -13,7 +13,7 @@ Player::~Player()
 {
 	for (int i = 0; i < _soldiers.size(); i++)
 	{
-		delete _soldiers[i];
+		_soldiers[i].reset();
 	}
 
 	_soldiers.clear();
@@ -22,14 +22,14 @@ Player::~Player()
 	PlayerEvent = nullptr;
 }
 
-void Player::AddSoldier(Soldier* soldier)
+void Player::AddSoldier(std::shared_ptr<Soldier> soldier)
 {
 	_soldiers.push_back(soldier);
 }
 
-Soldier& Player::GetSoldier(int index)
+std::shared_ptr<Soldier> Player::GetSoldier(int index)
 {
-	return *_soldiers[index];
+	return _soldiers[index];
 }
 
 int Player::GetArmySize()
@@ -52,7 +52,7 @@ PlayerSide Player::GetPlayerSide()
 	return _playerSide;
 }
 
-void Player::KillSoldier(Soldier* dyingSoldier)
+void Player::KillSoldier(std::shared_ptr<Soldier> dyingSoldier)
 {
 	auto iter = std::find(_soldiers.begin(), _soldiers.end(), dyingSoldier);
 	if (iter != _soldiers.end())
@@ -60,7 +60,7 @@ void Player::KillSoldier(Soldier* dyingSoldier)
 		_soldiers.erase(iter);
 	}
 
-	delete dyingSoldier;
+	dyingSoldier.reset();
 }
 
 void Player::IncrementIdleSoldierCount()

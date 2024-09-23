@@ -1,7 +1,7 @@
 #include "CombatManager.h"
 
 
-void CombatManager::Initialize(const std::vector<Player*>& playerList, const int playerCount)
+void CombatManager::Initialize(const std::vector<shared_ptr<Player>>& playerList, const int playerCount)
 {
 	_currentPlayersList = playerList;
 	_currentPlayerCount = playerCount;
@@ -21,7 +21,7 @@ void CombatManager::SetCurrentTurn(int playerId)
 
 		for (int j = 0; j < _currentPlayersList[i]->GetArmySize(); j++)
 		{
-			_enemySoldiersOnGround.push_back(&_currentPlayersList[i]->GetSoldier(j));
+			_enemySoldiersOnGround.push_back(_currentPlayersList[i]->GetSoldier(j));
 		}
 	}
 }
@@ -45,18 +45,18 @@ bool CombatManager::SeekAndDestroy(int attackingSoldierId)
 {
 	for (int i = 0; i < _enemySoldiersOnGround.size(); i++)
 	{
-		int attackerPosX = _currentPlayersList[_currentAttackingPlayerId]->GetSoldier(attackingSoldierId).GetPosition().X;
-		int attackerPosY = _currentPlayersList[_currentAttackingPlayerId]->GetSoldier(attackingSoldierId).GetPosition().Y;
+		int attackerPosX = _currentPlayersList[_currentAttackingPlayerId].get()->GetSoldier(attackingSoldierId).get()->GetPosition().X;
+		int attackerPosY = _currentPlayersList[_currentAttackingPlayerId].get()->GetSoldier(attackingSoldierId).get()->GetPosition().Y;
 		int enemyPosX = _enemySoldiersOnGround[i]->GetPosition().X;
 		int enemyPosY = _enemySoldiersOnGround[i]->GetPosition().Y;
 
-		double attackerRange = _currentPlayersList[_currentAttackingPlayerId]->GetSoldier(attackingSoldierId).GetAttackRange();
+		double attackerRange = _currentPlayersList[_currentAttackingPlayerId]->GetSoldier(attackingSoldierId)->GetAttackRange();
 
 		if (MathUtils::EuclideanDistance(attackerPosX, attackerPosY, enemyPosX, enemyPosY) <= attackerRange)
 		{
 			///Kill With Power
 			int enemyHealth = _enemySoldiersOnGround[i]->GetHealth();
-			_currentPlayersList[_currentAttackingPlayerId]->GetSoldier(attackingSoldierId).Attack(enemyHealth);
+			_currentPlayersList[_currentAttackingPlayerId]->GetSoldier(attackingSoldierId)->Attack(enemyHealth);
 			_enemySoldiersOnGround[i]->SetHealth(enemyHealth, true);
 
 			GameLogger::LogAttack(_currentAttackingPlayerId, attackingSoldierId, _enemySoldiersOnGround[i]->GetParentPlayerId(), i, _enemySoldiersOnGround[i]->GetHealth());

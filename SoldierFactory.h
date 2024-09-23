@@ -3,6 +3,7 @@
 #include "SoldierMarine.h"
 #include "SoldierSniper.h"
 #include "SoldierSpy.h"
+#include <memory>
 
 class SoldierFactory
 {
@@ -12,7 +13,7 @@ public:
 
 	~SoldierFactory() {}
 
-	Soldier* CreateSoldier(SoldierType soldierType, GridCoordinates startPosition);
+	std::shared_ptr<Soldier> CreateSoldier(SoldierType soldierType, GridCoordinates startPosition);
 
 private:
 	int BaseCommonDamage = 30;

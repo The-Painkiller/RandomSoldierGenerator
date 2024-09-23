@@ -2,6 +2,8 @@
 #include "Player.h"
 #include "Event.h"
 #include<vector>
+#include<memory>
+using namespace std;
 
 class PlayerManager
 {
@@ -11,14 +13,14 @@ public:
 	~PlayerManager();
 
 	void AddNewPlayer(Player* player);
-	void AddSoldierForPlayer(int playerIndex, Soldier* soldier);
+	void AddSoldierForPlayer(int playerIndex, shared_ptr<Soldier> soldier);
 	int GetPlayerCount();
 	int GetDefaultNumberOfSoldiers();
 	bool AreAllPlayersIdle();
 	Player& GetPlayer(int index);
-	std::vector<Player*>& GetPlayers();
+	std::vector<shared_ptr<Player>>& GetPlayers();
 	
 private:
 	int _defaultNumberOfSoldiers = 0;
-	std::vector<Player*> _players;
+	std::vector<shared_ptr<Player>> _players;
 };

@@ -9,8 +9,8 @@ void GameLogger::LogPlayerArmy(Player& player)
 	for (int i = 0; i < player.GetArmySize(); i++)
 	{
 		printf("%d:", i);
-		printf(GetSoldierTypeName(player.GetSoldier(i).GetType()));
-		printf("(%d, %d:%d)",player.GetSoldier(i).GetHealth(), player.GetSoldier(i).GetPosition().X, player.GetSoldier(i).GetPosition().Y);
+		printf(GetSoldierTypeName(player.GetSoldier(i).get()->GetType()));
+		printf("(%d, %d:%d)",player.GetSoldier(i).get()->GetHealth(), player.GetSoldier(i).get()->GetPosition().X, player.GetSoldier(i).get()->GetPosition().Y);
 		printf("\n");
 	}
 }

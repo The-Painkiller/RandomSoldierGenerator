@@ -6,7 +6,7 @@ PlayerManager::PlayerManager(int numberOfPlayers, int defaultNumberOfSoldiers)
 	for (int i = 0; i < numberOfPlayers; i++)
 	{
 		PlayerSide side = (PlayerSide)(i + 1);
-		_players.push_back(new Player(_defaultNumberOfSoldiers, i, side));
+		_players.push_back(shared_ptr<Player>(new Player(_defaultNumberOfSoldiers, i, side)));
 	}
 }
 
@@ -14,7 +14,7 @@ PlayerManager::~PlayerManager()
 {
 	for (int i = 0; i < _players.size(); i++)
 	{
-		delete _players[i];
+		_players[i].reset();
 	}
 
 	_players.clear();
@@ -22,7 +22,7 @@ PlayerManager::~PlayerManager()
 
 void PlayerManager::AddNewPlayer(Player* player)
 {
-	_players.push_back(player);
+	_players.push_back(shared_ptr<Player>(player));
 }
 
 Player& PlayerManager::GetPlayer(int index)
@@ -33,12 +33,12 @@ Player& PlayerManager::GetPlayer(int index)
 	}
 }
 
-std::vector<Player*>& PlayerManager::GetPlayers()
+std::vector<shared_ptr<Player>>& PlayerManager::GetPlayers()
 {
 	return _players;
 }
 
-void PlayerManager::AddSoldierForPlayer(int playerIndex, Soldier* soldier)
+void PlayerManager::AddSoldierForPlayer(int playerIndex, shared_ptr<Soldier> soldier)
 {
 	if (_players.empty() || playerIndex >= _players.size())
 	{

@@ -12,15 +12,15 @@ public:
 	Player() = delete;
 	~Player();
 
-	Soldier& GetSoldier(int index);
+	std::shared_ptr<Soldier> GetSoldier(int index);
 	int GetArmySize();
 	int GetPlayerId();
 	int GetIdleSoldierCount();
 	PlayerSide GetPlayerSide();
 	void IncrementIdleSoldierCount();
 	void ResetIdleSoldierCount();
-	void AddSoldier(Soldier* soldier);
-	void KillSoldier(Soldier* dyingSoldier);
+	void AddSoldier(std::shared_ptr<Soldier> soldier);
+	void KillSoldier(std::shared_ptr<Soldier> dyingSoldier);
 	void MoveArmy(GridCoordinates boundary);
 	void SetDefeated();
 	static void RegisterEventHandler(EventHandler& handler);
@@ -32,6 +32,6 @@ private:
 	int _idleSoldierCounter = 0;
 	bool _isPlayerDefeated = false;
 	PlayerSide _playerSide = NoSide;
-	std::vector<Soldier*> _soldiers;
+	std::vector<std::shared_ptr<Soldier>> _soldiers;
 	static Event* PlayerEvent;
 };
