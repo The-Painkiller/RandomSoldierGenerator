@@ -33,5 +33,5 @@ private:
 	bool _isPlayerDefeated = false;
 	PlayerSide _playerSide = NoSide;
 	std::vector<std::shared_ptr<Soldier>> _soldiers;
-	static Event* PlayerEvent;
+	static std::unique_ptr<Event> PlayerEvent;
 };

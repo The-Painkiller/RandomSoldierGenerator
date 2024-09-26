@@ -1,6 +1,6 @@
 #include "Player.h"
 
-Event* Player::PlayerEvent = new Event();
+std::unique_ptr<Event> Player::PlayerEvent = std::unique_ptr<Event>(new Event());
 
 Player::Player(int initialArmySize, int playerId, PlayerSide playerSide)
 {
@@ -17,8 +17,6 @@ Player::~Player()
 	}
 
 	_soldiers.clear();
-
-	delete PlayerEvent;
 	PlayerEvent = nullptr;
 }
 

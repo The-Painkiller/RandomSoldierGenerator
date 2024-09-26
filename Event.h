@@ -1,6 +1,7 @@
 #pragma once
 #include "GlobalEnums.h"
 #include <vector>
+#include <memory>
 
 class EventHandler
 {
@@ -23,5 +24,5 @@ public:
 	static GridCoordinates NullGridArg;
 	
 protected:
-	std::vector<EventHandler*> _eventHandlers;
+	std::vector<std::unique_ptr<EventHandler>> _eventHandlers;
 };

@@ -4,17 +4,12 @@ GridCoordinates Event::NullGridArg = GridCoordinates();
 
 Event::~Event()
 {
-	for (int i = 0; i < _eventHandlers.size(); i++)
-	{
-		delete _eventHandlers[i];
-	}
-
 	_eventHandlers.clear();
 }
 
 void Event::Register(EventHandler* handler)
 {
-	_eventHandlers.push_back(handler);
+	_eventHandlers.push_back(std::unique_ptr<EventHandler>(handler));
 }
 
 void Event::Invoke(GameEvent type)
